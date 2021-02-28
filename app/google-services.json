@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "99467309091",
+    "project_id": "carbonize-bff63",
+    "storage_bucket": "carbonize-bff63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99467309091:android:d453caab3471550de2c196",
+        "android_client_info": {
+          "package_name": "com.example.carbonize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99467309091-lsqe2mbeji3ujhfm0s4s9ojuek81voo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFnXQkHqagmuUUGUY3q6expPjeRTo-3_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99467309091-lsqe2mbeji3ujhfm0s4s9ojuek81voo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

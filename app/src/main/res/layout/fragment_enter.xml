@@ -56,17 +56,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/goToLoginView"
         android:layout_width="339dp"
         android:layout_height="54dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#FFFFFF"
-        android:onClick="onClick"
         android:text="Login"
-        android:textColor="#000000"
+        android:textColor="#F44336"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+        app:layout_constraintTop_toBottomOf="@+id/registerButton"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

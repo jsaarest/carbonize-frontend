@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LoginFragment">
+    tools:context=".RegisterFragment">
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="140dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/registerWithEmail"
         android:layout_width="339dp"
         android:layout_height="54dp"
         android:layout_marginBottom="32dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/mFullname"
         android:layout_width="345dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
@@ -57,13 +57,13 @@
         app:layout_constraintVertical_bias="0.98" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/mPassword"
         android:layout_width="345dp"
         android:layout_height="50dp"
         android:layout_marginBottom="196dp"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintBottom_toTopOf="@+id/registerWithEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent" />
@@ -73,13 +73,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:labelFor="@id/editTextTextPassword"
+        android:labelFor="@id/loginPassword"
         android:text="Password"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
+        app:layout_constraintBottom_toTopOf="@+id/mPassword"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/loginEmail"
         android:layout_width="345dp"
         android:layout_height="51dp"
         android:layout_marginBottom="8dp"
@@ -96,9 +96,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:labelFor="@id/editTextTextEmailAddress"
+        android:labelFor="@id/loginEmail"
         android:text="Email address"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/loginEmail"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -106,9 +106,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:labelFor="@id/editTextTextPersonName"
+        android:labelFor="@id/mFullname"
         android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/mFullname"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contentTitle"
         app:layout_constraintVertical_bias="1.0" />
