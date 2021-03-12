@@ -47,18 +47,26 @@ public class RegisterFragment extends Fragment {
                 String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
 
-                if(TextUtils.isEmpty(email)){
-                    mEmail.setError("Please, provide a email");
+                //check if email contains @ and . and is at least 5 characters long
+                if (email.matches("^(?=.*[@])(?=.*[.]).{5,}$")) {
+                    System.out.println("email ok");
+                }
+                else
+                {
+                    mEmail.setError("Please, provide a valid email");
                     return;
                 }
-                if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Please, provide a password");
+
+                //check if all requirements for a good password are met
+                if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\\$%\\^&\\*]).{12,}$")) {
+                    System.out.println("Password ok");
+                }
+                else{
+                    System.out.println("Password " + password + " NOT ok");
+                    mPassword.setError("Password must be at least 12 characters long, contain upper and lowercase letters, numbers and special characters");
                     return;
                 }
-                if(password.length() < 7){
-                    mPassword.setError("Password must be at least 7 characters");
-                    return;
-                }
+
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -67,7 +75,9 @@ public class RegisterFragment extends Fragment {
                             // TODO NAVIGATE INSIDE APP DASHBOARD
                             Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_dashboardFragment);
                         } else {
+                            //one last check if firebase accepted the credentials. If not, the reason is email.
                             System.out.println("ERROR: User creation not successful");
+                            mEmail.setError("Invalid email");
                         }
                     }
                 });
