@@ -53,10 +53,11 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            System.out.println("User created");
+                            System.out.println("Logged in");
                             // Navigate inside app dashboard
                             Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_dashboardFragment);
                         } else {
+
                             System.out.println("ERROR: Login not successful");
                             //TODO Handle errors with failed login
                         }
