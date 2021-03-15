@@ -65,9 +65,19 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container_view_tag, new EnterFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+        onDestroyView();
         //TODO logout method implementation
         //logs user out (through firebase?)
         System.out.println("User logged out successfully.");
+    }
+
+    //Returns the user to Dashboard
+    public void goBackButton(View view) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container_view_tag, new DashboardFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        onDestroyView();
     }
 
     //TODO Method to fetch profile image
