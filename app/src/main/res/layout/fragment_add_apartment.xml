@@ -9,14 +9,16 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="24dp"
         android:onClick="calculateResults"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -24,12 +26,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:text="Add apartment"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#E6000000"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/backToDashboardButton" />
 
     <EditText
         android:id="@+id/city"
@@ -93,7 +96,7 @@
         android:layout_width="165dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="132dp"
+        android:layout_marginBottom="72dp"
         android:ems="10"
         android:hint="e.g 31m2"
         android:inputType="number"
@@ -165,5 +168,19 @@
         android:text="City"
         app:layout_constraintBottom_toTopOf="@+id/city"
         app:layout_constraintStart_toStartOf="@+id/city" />
+
+    <Button
+        android:id="@+id/backToDashboardButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Go back"
+        android:textColor="#F44336"
+        app:icon="@drawable/abc_vector_test"
+        app:iconTint="#F44336"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
