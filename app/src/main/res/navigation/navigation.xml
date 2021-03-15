@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/addApartment">
+    app:startDestination="@id/enterFragment">
 
     <fragment
         android:id="@+id/enterFragment"
@@ -62,5 +62,9 @@
         android:id="@+id/addApartment"
         android:name="com.example.carbonize.AddApartment"
         android:label="fragment_add_apartment"
-        tools:layout="@layout/fragment_add_apartment" />
+        tools:layout="@layout/fragment_add_apartment" >
+        <action
+            android:id="@+id/action_addApartment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 </navigation>
