@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.carbonize.databinding.FragmentProfileBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.InputStream;
 
@@ -28,6 +29,7 @@ public class ProfileFragment extends Fragment {
     //https://medium.com/androiddevelopers/use-view-binding-to-replace-findviewbyid-c83942471fc
     private FragmentProfileBinding binding;
     private CircleImageView profileImage;
+    private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
@@ -66,8 +69,7 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         onDestroyView();
-        //TODO logout method implementation
-        //logs user out (through firebase?)
+        mAuth.signOut();
         System.out.println("User logged out successfully.");
     }
 

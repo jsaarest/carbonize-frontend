@@ -12,6 +12,7 @@ public class CarbonAndRevenueCalculator {
 
 
     /*
+    Hakee tietokannasta ja laskee yhteen
     public double getEstimatedCo2(ArrayList<Reservation> reservations) {}
 
     public double calculateTotalRevenue(ArrayList<Reservation> reservations) {}
