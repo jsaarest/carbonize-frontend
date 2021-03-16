@@ -54,4 +54,9 @@
         android:name="com.example.carbonize.DashboardFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list" />
+    <fragment
+        android:id="@+id/addApartment"
+        android:name="com.example.carbonize.AddApartment"
+        android:label="fragment_add_apartment"
+        tools:layout="@layout/fragment_add_apartment" />
 </navigation>
