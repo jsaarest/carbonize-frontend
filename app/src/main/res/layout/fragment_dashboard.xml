@@ -110,15 +110,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
-
-        android:id="@+id/imageButton"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="29dp"
-        android:background="@drawable/sample_avatar"
-        android:src="@drawable/roundcorner"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="36dp"
+        android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
