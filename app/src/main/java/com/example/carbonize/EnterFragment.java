@@ -36,8 +36,6 @@ public class EnterFragment extends Fragment {
         goToRegisterPage.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_enterFragment_to_registerFragment, null));
         return view;
 
-        // kommentti
-
     }
 
 
