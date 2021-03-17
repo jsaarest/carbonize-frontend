@@ -53,10 +53,13 @@
         android:id="@+id/dashboardFragment"
         android:name="com.example.carbonize.DashboardFragment"
         android:label="fragment_item_list"
-        tools:layout="@layout/fragment_item_list" >
+        tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_dashboardFragment_to_addApartment"
             app:destination="@id/addApartment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addApartment"
@@ -66,5 +69,15 @@
         <action
             android:id="@+id/action_addApartment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.carbonize.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
 </navigation>
