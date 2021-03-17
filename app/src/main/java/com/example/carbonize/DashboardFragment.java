@@ -16,12 +16,15 @@ import android.widget.Button;
 
 import com.example.carbonize.dummy.DummyContent;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A fragment representing a list of Items.
  */
 public class DashboardFragment extends Fragment {
 
     Button addNewButton;
+    CircleImageView profileButton;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -57,14 +60,21 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        addNewButton = view.findViewById(R.id.addNewButton);
+        addNewButton = view.findViewById(R.id.addNewLocation);
+        profileButton = view.findViewById(R.id.profile_image);
 
         addNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_dashboardFragment_to_addApartment);
+            }
+        });
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_dashboardFragment_to_profileFragment);
             }
         });
 
