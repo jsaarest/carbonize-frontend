@@ -16,10 +16,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class Dialog extends AppCompatDialogFragment {
-    EditText amount;
     private DialogListener listener;
-    Process process;
-    Button shareButton;
 
     @NonNull
     @Override
@@ -27,7 +24,6 @@ public class Dialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog, null);
-        shareButton = view.findViewById(R.id.shareButton);
         builder.setView(view);
 
         return builder.create();
