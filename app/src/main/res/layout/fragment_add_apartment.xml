@@ -1,204 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddApartment">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".AddApartment">
 
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="24dp"
-        android:onClick="calculateResults"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="8dp"
+                android:onClick="calculateResults"
+                android:text="Save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/addApartmentHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Add apartment"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#E6000000"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backToDashboardButton" />
+            <TextView
+                android:id="@+id/addApartmentHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
+                android:text="Add apartment"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="#E6000000"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/address"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backToDashboardButton"
+                app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="160dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:hint="e.g Helsinki"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/zipCode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/zipCode" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/zipCode"
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="40dp"
-        android:ems="10"
-        android:hint="e.g 00100"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/tenantNameLabel"
-        app:layout_constraintStart_toStartOf="parent" />
+            </ScrollView>
 
-    <EditText
-        android:id="@+id/address"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Address"
-        android:inputType="textPostalAddress"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:hint="e.g Helsinki"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toBottomOf="@+id/zipCode"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/zipCode" />
 
-    <EditText
-        android:id="@+id/area"
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="72dp"
-        android:ems="10"
-        android:hint="e.g 31m2"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/zipCode"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="40dp"
+                android:ems="10"
+                android:hint="e.g 00100"
+                android:inputType="number"
+                app:layout_constraintBottom_toTopOf="@+id/tenantNameLabel"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/residents"
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="4dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:ems="10"
+                android:hint="Address"
+                android:inputType="textPostalAddress"
+                app:layout_constraintBottom_toTopOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/monthlyRent"
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/area"
+                android:layout_width="165dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="28dp"
+                android:ems="10"
+                android:hint="e.g 31m2"
+                android:inputType="number"
+                app:layout_constraintBottom_toTopOf="@+id/button"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:labelFor="@id/monthlyRent"
-        android:text="Monthly rent"
-        app:layout_constraintBottom_toTopOf="@+id/monthlyRent"
-        app:layout_constraintStart_toStartOf="@+id/monthlyRent" />
+            <EditText
+                android:id="@+id/residents"
+                android:layout_width="165dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="4dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintBottom_toTopOf="@+id/textView5"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:labelFor="@id/area"
-        android:text="Area"
-        app:layout_constraintBottom_toTopOf="@+id/area"
-        app:layout_constraintStart_toStartOf="@+id/area" />
+            <EditText
+                android:id="@+id/monthlyRent"
+                android:layout_width="165dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="24dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:labelFor="@id/residents"
-        android:text="Residents"
-        app:layout_constraintBottom_toTopOf="@+id/residents"
-        app:layout_constraintStart_toStartOf="@+id/residents" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp"
+                android:labelFor="@id/monthlyRent"
+                android:text="Monthly rent"
+                app:layout_constraintBottom_toTopOf="@+id/monthlyRent"
+                app:layout_constraintStart_toStartOf="@+id/monthlyRent" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:labelFor="@id/address"
-        android:text="Address"
-        app:layout_constraintBottom_toTopOf="@+id/address"
-        app:layout_constraintStart_toStartOf="@+id/address"
-        app:layout_constraintTop_toBottomOf="@+id/addApartmentHeading"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:labelFor="@id/area"
+                android:text="Area"
+                app:layout_constraintBottom_toTopOf="@+id/area"
+                app:layout_constraintStart_toStartOf="@+id/area" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:labelFor="@id/zipCode"
-        android:text="Zip-code"
-        app:layout_constraintBottom_toTopOf="@+id/zipCode"
-        app:layout_constraintStart_toStartOf="@+id/zipCode"
-        app:layout_constraintTop_toTopOf="@+id/textView9"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:labelFor="@id/residents"
+                android:text="Residents"
+                app:layout_constraintBottom_toTopOf="@+id/residents"
+                app:layout_constraintStart_toStartOf="@+id/residents" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:labelFor="@id/city"
-        android:text="City"
-        app:layout_constraintBottom_toTopOf="@+id/city"
-        app:layout_constraintStart_toStartOf="@+id/city" />
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:labelFor="@id/address"
+                android:text="Address"
+                app:layout_constraintBottom_toTopOf="@+id/address"
+                app:layout_constraintStart_toStartOf="@+id/address"
+                app:layout_constraintTop_toBottomOf="@+id/addApartmentHeading"
+                app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/backToDashboardButton"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="Go back"
-        android:textColor="#F44336"
-        app:icon="@drawable/abc_vector_test"
-        app:iconTint="#F44336"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:labelFor="@id/zipCode"
+                android:text="Zip-code"
+                app:layout_constraintBottom_toTopOf="@+id/zipCode"
+                app:layout_constraintStart_toStartOf="@+id/zipCode"
+                app:layout_constraintTop_toTopOf="@+id/textView9"
+                app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/tenantNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tenant name"
-        app:layout_constraintBottom_toTopOf="@+id/tenantNameField"
-        app:layout_constraintStart_toStartOf="@+id/tenantNameField" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:labelFor="@id/city"
+                android:text="City"
+                app:layout_constraintBottom_toTopOf="@+id/city"
+                app:layout_constraintStart_toStartOf="@+id/city" />
 
-    <EditText
-        android:id="@+id/tenantNameField"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/backToDashboardButton"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:text="Go back"
+                android:textColor="#F44336"
+                app:icon="@drawable/abc_vector_test"
+                app:iconTint="#F44336"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tenantNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Tenant name"
+                app:layout_constraintBottom_toTopOf="@+id/tenantNameField"
+                app:layout_constraintStart_toStartOf="@+id/tenantNameField" />
+
+            <EditText
+                android:id="@+id/tenantNameField"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="48dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
