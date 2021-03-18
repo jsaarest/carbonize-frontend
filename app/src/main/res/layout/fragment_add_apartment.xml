@@ -50,11 +50,11 @@
         android:layout_width="165dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="40dp"
         android:ems="10"
         android:hint="e.g 00100"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/residents"
+        app:layout_constraintBottom_toTopOf="@+id/tenantNameLabel"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -70,28 +70,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/residents"
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/monthlyRent"
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
         android:id="@+id/area"
         android:layout_width="165dp"
         android:layout_height="50dp"
@@ -103,23 +81,34 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:labelFor="@id/residents"
-        android:text="Residents"
-        app:layout_constraintBottom_toTopOf="@+id/residents"
-        app:layout_constraintStart_toStartOf="@+id/residents"
-        app:layout_constraintTop_toBottomOf="@+id/zipCode"
-        app:layout_constraintVertical_bias="1.0" />
+    <EditText
+        android:id="@+id/residents"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="4dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/monthlyRent"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="4dp"
         android:labelFor="@id/monthlyRent"
         android:text="Monthly rent"
         app:layout_constraintBottom_toTopOf="@+id/monthlyRent"
@@ -129,11 +118,21 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="4dp"
         android:labelFor="@id/area"
         android:text="Area"
         app:layout_constraintBottom_toTopOf="@+id/area"
         app:layout_constraintStart_toStartOf="@+id/area" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:labelFor="@id/residents"
+        android:text="Residents"
+        app:layout_constraintBottom_toTopOf="@+id/residents"
+        app:layout_constraintStart_toStartOf="@+id/residents" />
 
     <TextView
         android:id="@+id/textView7"
@@ -182,5 +181,24 @@
         app:iconTint="#F44336"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tenantNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tenant name"
+        app:layout_constraintBottom_toTopOf="@+id/tenantNameField"
+        app:layout_constraintStart_toStartOf="@+id/tenantNameField" />
+
+    <EditText
+        android:id="@+id/tenantNameField"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="48dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

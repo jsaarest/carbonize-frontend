@@ -31,11 +31,13 @@ import java.util.Map;
 
 public class AddApartment extends Fragment {
 
-    EditText address, zipCode, city, residents, monthlyRent, area;
+    EditText address, zipCode, city, residents, monthlyRent, area, tenantName;
     Button button;
     Button backToDashboardButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    public AddApartment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class AddApartment extends Fragment {
         monthlyRent = v.findViewById(R.id.monthlyRent);
         city = v.findViewById(R.id.city);
         zipCode = v.findViewById(R.id.zipCode);
+        tenantName = v.findViewById(R.id.tenantNameField);
 
         button.setOnClickListener(v1 -> addApartmentToDatabase(v));
         backToDashboardButton.setOnClickListener(v1 -> Navigation.findNavController(v).navigate(R.id.action_addApartment_to_dashboardFragment));
@@ -131,6 +134,7 @@ public class AddApartment extends Fragment {
         apartment.put("rent", Float.parseFloat(String.valueOf(monthlyRent.getText())));
         apartment.put("residents", Integer.parseInt(String.valueOf(residents.getText())));
         apartment.put("zipCode", zipCode.getText().toString());
+        apartment.put("tenantName", tenantName.getText().toString());
 
         // Add a new document with a generated ID
         db.collection("apartments")
