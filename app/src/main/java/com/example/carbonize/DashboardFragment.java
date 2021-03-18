@@ -1,9 +1,11 @@
 package com.example.carbonize;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.carbonize.dummy.DummyContent;
 
@@ -21,10 +24,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A fragment representing a list of Items.
  */
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements Dialog.DialogListener {
 
     Button addNewButton;
     CircleImageView profileButton;
+    TextView totalCo2;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -64,6 +68,7 @@ public class DashboardFragment extends Fragment {
 
         addNewButton = view.findViewById(R.id.addNewLocation);
         profileButton = view.findViewById(R.id.profile_image);
+        totalCo2 = view.findViewById(R.id.txtTotalCo2);
 
         addNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +80,13 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_dashboardFragment_to_profileFragment);
+            }
+        });
+
+        totalCo2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
             }
         });
 
@@ -91,4 +103,14 @@ public class DashboardFragment extends Fragment {
         }
         return view;
     }
+
+    public void openDialog(){
+        Dialog dialog = new Dialog();
+        dialog.show(getParentFragmentManager(), "dialog");
+    }
+
+    public void printMessage(){
+        System.out.println("Kissat ovat koiria");
+    }
+
 }
