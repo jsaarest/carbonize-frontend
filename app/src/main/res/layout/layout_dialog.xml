@@ -25,21 +25,10 @@
         android:id="@+id/dialogBodyText"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="48dp"
         android:text="This means that you’re top 1% performer on sustainability standpoint."
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/shareButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/shareButton"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="4dp"
-        android:text="Share"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
