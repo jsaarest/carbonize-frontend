@@ -28,16 +28,16 @@ public class Logger {
 
 
     //Checks if the file exists yet and creates it appropriately
-    public void logApartment(String address, String city, double rent, double co2) {
+    public void logApartment(String address, String city, String zipCode, int residents, String tenantName, double area, double rent, double co2) {
         String path = context.getFilesDir().getAbsolutePath();
         System.out.println(path + "/" + fileName);
         File file = new File(path + "/" + fileName);
         if (file.length() == 0) {
             initializeFile();
-            writeFile(address, city, rent, co2);
+            writeFile(address, city, zipCode, residents, tenantName, area, rent, co2);
         }
         else {
-            writeFile(address, city, rent, co2);
+            writeFile(address, city, zipCode, residents, tenantName, area, rent, co2);
         }
     }
 
@@ -46,7 +46,7 @@ public class Logger {
         try {
             OutputStreamWriter ows = new OutputStreamWriter(context.openFileOutput(fileName, context.MODE_PRIVATE));
             String userHeader = "Data below is of user: " + user + "\n";
-            String dataHeader = "Address;City;Rent;Co2Amount\n";
+            String dataHeader = "Address;City;Zipcode;Residents;Tenant;Area;Rent;Co2Amount\n";
             ows.write(userHeader);
             ows.write(dataHeader);
             ows.close();
@@ -58,10 +58,10 @@ public class Logger {
     }
 
     //Writes the added apartment information to the .csv file
-    public void writeFile(String address, String city, double rent, double co2) {
+    public void writeFile(String address, String city, String zipCode, int residents, String tenantName, double area, double rent, double co2) {
         try {
             OutputStreamWriter ows = new OutputStreamWriter(context.openFileOutput(fileName, context.MODE_APPEND));
-            String newApartment = address + ";" + city + ";" + rent + ";" + co2 + "\n";
+            String newApartment = address + ";" + city + ";" + zipCode + ";" + residents + ";" + tenantName + ";" + area + ";" + rent + ";" + co2 + "\n";
             ows.append(newApartment);
             ows.close();
         } catch (IOException e) {

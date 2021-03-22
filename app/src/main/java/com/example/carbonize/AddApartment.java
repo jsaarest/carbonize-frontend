@@ -144,8 +144,9 @@ public class AddApartment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("ADDED", "New apartment added with ID: " + documentReference.getId());
                         //Add the apartment data to a .csv file
-                        Logger.getInstance().logApartment(address.getText().toString(), city.getText().toString(),
-                                Float.parseFloat(String.valueOf(monthlyRent.getText())), co2Amount);
+                        Logger.getInstance().logApartment(address.getText().toString(), city.getText().toString(), zipCode.getText().toString(),
+                                Integer.parseInt(String.valueOf(residents.getText())), tenantName.getText().toString(),
+                                Float.parseFloat(String.valueOf(area.getText())), Float.parseFloat(String.valueOf(monthlyRent.getText())), co2Amount);
                         Navigation.findNavController(v).navigate(R.id.action_addApartment_to_dashboardFragment);
                     }
 
