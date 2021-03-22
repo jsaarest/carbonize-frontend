@@ -109,7 +109,7 @@ public class AddApartment extends Fragment {
 
         // Make some checking if there is data inserted
         if(TextUtils.isEmpty(getTextAndTrim(address))){
-            address.setError("Please, provide a address");
+            address.setError("Please, provide an address");
             return;
         }
         if(TextUtils.isEmpty(getTextAndTrim(residents))){
@@ -143,6 +143,9 @@ public class AddApartment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("ADDED", "New apartment added with ID: " + documentReference.getId());
+                        //Add the apartment data to a .csv file
+                        Logger.getInstance().logApartment(address.getText().toString(), city.getText().toString(),
+                                Float.parseFloat(String.valueOf(monthlyRent.getText())), co2Amount);
                         Navigation.findNavController(v).navigate(R.id.action_addApartment_to_dashboardFragment);
                     }
 
