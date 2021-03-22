@@ -12,8 +12,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 public class Logger {
-    private FirebaseAuth mAuth;
-    private String user = mAuth.getCurrentUser().getEmail();
+    private String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
     private String fileName = "Userdata of " + user + ".csv";
     private static Context context;
 
@@ -27,6 +26,8 @@ public class Logger {
         return instance;
 }
 
+
+    //Checks if the file exists yet and creates it appropriately
     public void logApartment(String address, String city, double rent, double co2) {
         String path = context.getFilesDir().getAbsolutePath();
         System.out.println(path + "/" + fileName);
@@ -40,11 +41,12 @@ public class Logger {
         }
     }
 
+    //If the file does not exists yet, initializes it with header information
     public void initializeFile() {
         try {
             OutputStreamWriter ows = new OutputStreamWriter(context.openFileOutput(fileName, context.MODE_PRIVATE));
-            String userHeader = "Data below is of user: " + user;
-            String dataHeader = "Address, City, Rent, Co2Amount\n";
+            String userHeader = "Data below is of user: " + user + "\n";
+            String dataHeader = "Address;City;Rent;Co2Amount\n";
             ows.write(userHeader);
             ows.write(dataHeader);
             ows.close();
@@ -55,7 +57,7 @@ public class Logger {
         }
     }
 
-    //public int writeFile(String apartment, String city, String address, double rent, double co2)
+    //Writes the added apartment information to the .csv file
     public void writeFile(String address, String city, double rent, double co2) {
         try {
             OutputStreamWriter ows = new OutputStreamWriter(context.openFileOutput(fileName, context.MODE_APPEND));
@@ -63,7 +65,7 @@ public class Logger {
             ows.append(newApartment);
             ows.close();
         } catch (IOException e) {
-            //TODO handle error
+            //TODO Handle writing error
             System.out.println("Writing to file failed");
             e.printStackTrace();
         }
