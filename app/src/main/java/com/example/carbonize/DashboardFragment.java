@@ -77,7 +77,7 @@ public class DashboardFragment extends Fragment {
         profileButton = view.findViewById(R.id.profile_image);
         this.apartments = view.findViewById(R.id.rclLocationList);
         apartmentsToList = initApartments();
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());//unsure if works
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.apartments.setLayoutManager(mLayoutManager);
         adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
         this.apartments.setAdapter(adapter);
@@ -97,21 +97,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        // Set the adapter
-        /*
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyDashboardRecyclerViewAdapter(DummyContent.ITEMS));
-        }
 
-
-         */
         return view;
     }
     private ArrayList<Apartment> initApartments(){
