@@ -104,6 +104,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             }
         });
 
+       /*
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -115,7 +116,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             }
             recyclerView.setAdapter(new MyDashboardRecyclerViewAdapter(DummyContent.ITEMS));
         }
-
+        */
         return view;
     }
 
