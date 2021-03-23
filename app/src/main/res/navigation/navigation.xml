@@ -20,6 +20,9 @@
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_enterFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -77,7 +80,9 @@
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_enterFragment"
+            app:destination="@id/enterFragment" />
     </fragment>
 </navigation>

@@ -31,11 +31,13 @@ import java.util.Map;
 
 public class AddApartment extends Fragment {
 
-    EditText address, zipCode, city, residents, monthlyRent, area;
+    EditText address, zipCode, city, residents, monthlyRent, area, tenantName;
     Button button;
     Button backToDashboardButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    public AddApartment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class AddApartment extends Fragment {
         monthlyRent = v.findViewById(R.id.monthlyRent);
         city = v.findViewById(R.id.city);
         zipCode = v.findViewById(R.id.zipCode);
+        tenantName = v.findViewById(R.id.tenantNameField);
 
         button.setOnClickListener(v1 -> addApartmentToDatabase(v));
         backToDashboardButton.setOnClickListener(v1 -> Navigation.findNavController(v).navigate(R.id.action_addApartment_to_dashboardFragment));
@@ -106,7 +109,7 @@ public class AddApartment extends Fragment {
 
         // Make some checking if there is data inserted
         if(TextUtils.isEmpty(getTextAndTrim(address))){
-            address.setError("Please, provide a address");
+            address.setError("Please, provide an address");
             return;
         }
         if(TextUtils.isEmpty(getTextAndTrim(residents))){
@@ -131,6 +134,7 @@ public class AddApartment extends Fragment {
         apartment.put("rent", Float.parseFloat(String.valueOf(monthlyRent.getText())));
         apartment.put("residents", Integer.parseInt(String.valueOf(residents.getText())));
         apartment.put("zipCode", zipCode.getText().toString());
+        apartment.put("tenantName", tenantName.getText().toString());
 
         // Add a new document with a generated ID
         db.collection("apartments")
@@ -139,6 +143,10 @@ public class AddApartment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("ADDED", "New apartment added with ID: " + documentReference.getId());
+                        //Add the apartment data to a .csv file
+                        Logger.getInstance().logApartment(address.getText().toString(), city.getText().toString(), zipCode.getText().toString(),
+                                Integer.parseInt(String.valueOf(residents.getText())), tenantName.getText().toString(),
+                                Float.parseFloat(String.valueOf(area.getText())), Float.parseFloat(String.valueOf(monthlyRent.getText())), co2Amount);
                         Navigation.findNavController(v).navigate(R.id.action_addApartment_to_dashboardFragment);
                     }
 

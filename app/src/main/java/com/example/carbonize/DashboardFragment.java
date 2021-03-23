@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.carbonize.dummy.DummyContent;
 
@@ -23,10 +24,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A fragment representing a list of Items.
  */
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements Dialog.DialogListener {
 
     Button addNewButton;
     CircleImageView profileButton;
+    TextView totalCo2;
     RecyclerView apartments;
     RecyclerView.Adapter adapter;
 
@@ -65,7 +67,6 @@ public class DashboardFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
     }
 
     @Override
@@ -81,6 +82,7 @@ public class DashboardFragment extends Fragment {
         this.apartments.setLayoutManager(mLayoutManager);
         adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
         this.apartments.setAdapter(adapter);
+        totalCo2 = view.findViewById(R.id.txtTotalCo2);
 
         addNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +97,37 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        totalCo2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+
+        // Set the adapter
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new MyDashboardRecyclerViewAdapter(DummyContent.ITEMS));
+        }
 
         return view;
     }
+
+    public void openDialog(){
+        Dialog dialog = new Dialog();
+        dialog.show(getParentFragmentManager(), "dialog");
+    }
+
+    public void printMessage(){
+        System.out.println("Kissat ovat koiria");
+    }
+
     private ArrayList<Apartment> initApartments(){
         ArrayList<Apartment> aptList = new ArrayList<Apartment>();
         //apartmentsToList.clear();
