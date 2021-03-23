@@ -82,8 +82,6 @@ public class DashboardFragment extends Fragment {
         adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
         this.apartments.setAdapter(adapter);
 
-
-
         addNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
