@@ -74,10 +74,6 @@ public class MyDashboardRecyclerViewAdapter extends RecyclerView.Adapter<MyDashb
             dashImageView = (ImageView) view.findViewById(R.id.dashImageView);
 
         }
-        /*
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }*/
+
     }
 }
