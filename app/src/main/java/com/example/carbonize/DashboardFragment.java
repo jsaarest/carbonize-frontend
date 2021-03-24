@@ -1,11 +1,9 @@
 package com.example.carbonize;
 
-
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +17,8 @@ import android.widget.TextView;
 
 import com.example.carbonize.dummy.DummyContent;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -29,16 +29,24 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     Button addNewButton;
     CircleImageView profileButton;
     TextView totalCo2;
+    RecyclerView apartments;
+    RecyclerView.Adapter adapter;
+
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
+
+    ArrayList<Apartment> apartmentsToList;
+
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
+
     public DashboardFragment() {
     }
 
@@ -68,6 +76,12 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
         addNewButton = view.findViewById(R.id.addNewLocation);
         profileButton = view.findViewById(R.id.profile_image);
+        this.apartments = view.findViewById(R.id.rclLocationList);
+        apartmentsToList = initApartments();
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        this.apartments.setLayoutManager(mLayoutManager);
+        adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
+        this.apartments.setAdapter(adapter);
         totalCo2 = view.findViewById(R.id.txtTotalCo2);
 
         addNewButton.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +104,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             }
         });
 
+       /*
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -101,6 +116,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             }
             recyclerView.setAdapter(new MyDashboardRecyclerViewAdapter(DummyContent.ITEMS));
         }
+        */
         return view;
     }
 
@@ -113,4 +129,19 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         System.out.println("Kissat ovat koiria");
     }
 
+    private ArrayList<Apartment> initApartments(){
+        ArrayList<Apartment> aptList = new ArrayList<Apartment>();
+        //apartmentsToList.clear();
+        //TODO: Add actual apartments from Firebase
+        aptList.add(new Apartment("0","Vuorikatu 2", "00100", "Helsinki", "Pasi Matti", "https://www.supersaa.fi/assets/ver-1613639598881/images/weather-icons/yo1.png", 1, 123.3, 65, 650));
+        aptList.add(new Apartment("0","Vuorikatu 2", "00100", "Helsinki", "Pasi Matti", "https://www.supersaa.fi/assets/ver-1613639598881/images/weather-icons/yo1.png", 1, 123.3, 65, 650));
+        aptList.add(new Apartment("0","Vuorikatu 2", "00100", "Helsinki", "Pasi Matti", "https://www.supersaa.fi/assets/ver-1613639598881/images/weather-icons/yo1.png", 1, 123.3, 65, 650));
+        aptList.add(new Apartment("0","Vuorikatu 2", "00100", "Helsinki", "Pasi Matti", "https://www.supersaa.fi/assets/ver-1613639598881/images/weather-icons/yo1.png", 1, 123.3, 65, 650));
+        for (int i=0;i<aptList.size();i++)
+        {
+            System.out.println("DEBUG:" + aptList.get(i).getAddress());
+        }
+
+    return aptList;
+    }
 }
