@@ -36,7 +36,7 @@ public class MyDashboardRecyclerViewAdapter extends RecyclerView.Adapter<MyDashb
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Apartment apartment = apartments.get(position);
         holder.apartmentAddress.setText(apartment.getAddress());
-        holder.apartmentOwner.setText(apartment.getOwner());
+        holder.apartmentOwner.setText(apartment.getTenantName());
         holder.apartmentRent.setText(String.valueOf(apartment.getRent()));
         holder.apartmentCo2.setText(String.valueOf(apartment.getCo2Amount()));
         Picasso.get().load(apartment.getApartmentImageUrl()).into(holder.dashImageView);
@@ -58,7 +58,7 @@ public class MyDashboardRecyclerViewAdapter extends RecyclerView.Adapter<MyDashb
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
         public final TextView apartmentAddress;
-        public final TextView apartmentOwner;
+        public final TextView apartmentOwner; //TODO change to tenant to match firestore information
         public final TextView apartmentRent;
         public final TextView apartmentCo2;
         public final ImageView dashImageView;
@@ -68,7 +68,7 @@ public class MyDashboardRecyclerViewAdapter extends RecyclerView.Adapter<MyDashb
             super(view);
             this.view = view;
             apartmentAddress = (TextView) view.findViewById(R.id.textAddress);
-            apartmentOwner = (TextView) view.findViewById(R.id.textOwner);
+            apartmentOwner = (TextView) view.findViewById(R.id.textOwner); //TODO change to tenant to match firestore information
             apartmentRent = (TextView) view.findViewById(R.id.textRent);
             apartmentCo2 = (TextView) view.findViewById(R.id.textCo2);
             dashImageView = (ImageView) view.findViewById(R.id.dashImageView);

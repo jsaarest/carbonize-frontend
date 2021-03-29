@@ -6,6 +6,16 @@ public class Apartment {
     private String zipCode;
     private String city;
     private String owner;
+
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+    }
+
+    private String tenantName;
     private String apartmentImageUrl;
     private Integer residents;
     private double co2Amount;
