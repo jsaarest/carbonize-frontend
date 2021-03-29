@@ -3,9 +3,10 @@ package com.example.carbonize;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,9 +16,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.carbonize.dummy.DummyContent;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -31,7 +38,10 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     TextView totalCo2;
     RecyclerView apartments;
     RecyclerView.Adapter adapter;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
+    boolean everythingLoaded = false;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -73,16 +83,17 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
+        apartmentsToList = getFireBaseData();
         addNewButton = view.findViewById(R.id.addNewLocation);
         profileButton = view.findViewById(R.id.profile_image);
+        totalCo2 = view.findViewById(R.id.txtTotalCo2);
         this.apartments = view.findViewById(R.id.rclLocationList);
-        apartmentsToList = initApartments();
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        this.apartments.setLayoutManager(mLayoutManager);
+
+        RecyclerView.LayoutManager apartmentsLayoutManager = new LinearLayoutManager(getContext());
+        this.apartments.setLayoutManager(apartmentsLayoutManager);
         adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
         this.apartments.setAdapter(adapter);
-        totalCo2 = view.findViewById(R.id.txtTotalCo2);
+
 
         addNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,19 +115,6 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             }
         });
 
-       /*
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyDashboardRecyclerViewAdapter(DummyContent.ITEMS));
-        }
-        */
         return view;
     }
 
@@ -129,19 +127,81 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         System.out.println("Kissat ovat koiria");
     }
 
-    private ArrayList<Apartment> initApartments(){
-        ArrayList<Apartment> aptList = new ArrayList<Apartment>();
-        //apartmentsToList.clear();
-        //TODO: Add actual apartments from Firebase
-        aptList.add(new Apartment("0","Vuorikatu 2", "00100", "Helsinki", "Pasi Matti", "https://www.supersaa.fi/assets/ver-1613639598881/images/weather-icons/yo1.png", 1, 123.3, 65, 650));
-        aptList.add(new Apartment("0","Vuorikatu 2", "00100", "Helsinki", "Pasi Matti", "https://www.supersaa.fi/assets/ver-1613639598881/images/weather-icons/yo1.png", 1, 123.3, 65, 650));
-        aptList.add(new Apartment("0","Vuorikatu 2", "00100", "Helsinki", "Pasi Matti", "https://www.supersaa.fi/assets/ver-1613639598881/images/weather-icons/yo1.png", 1, 123.3, 65, 650));
-        aptList.add(new Apartment("0","Vuorikatu 2", "00100", "Helsinki", "Pasi Matti", "https://www.supersaa.fi/assets/ver-1613639598881/images/weather-icons/yo1.png", 1, 123.3, 65, 650));
-        for (int i=0;i<aptList.size();i++)
+    /*
+    Add list of apartments to Recylerview
+     */
+    private ArrayList<Apartment> initApartments(ArrayList<Apartment> allApartments)
+    {
+        apartmentsFromFireStore.clear();
+        adapter.notifyDataSetChanged();
+        for (int i=0;i<allApartments.size();i++)
         {
-            System.out.println("DEBUG:" + aptList.get(i).getAddress());
+            apartmentsFromFireStore.add(allApartments.get(i));
+            //System.out.println("DEBUG: listaan " + allApartments.get(i).getAddress());
         }
+        adapter.notifyDataSetChanged();
+        return apartmentsFromFireStore;
+    }
 
-    return aptList;
+    /*
+        Read apartment data from Firebase Firestore
+         */
+    private ArrayList<Apartment> getFireBaseData()
+    {
+
+        db.getInstance()
+                .collection("apartments")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+                            apartmentsFromFireStore = parseInfo(myListOfDocuments);
+                            //System.out.println("DEBUG: IN apartmentsFromFireBase size: " + apartmentsFromFireStore.size());
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+        return apartmentsFromFireStore;
+    }
+
+    private ArrayList<Apartment> parseInfo(List<DocumentSnapshot> inputJson)  {
+
+        ArrayList<Apartment> apartmentsFromFirebase = new ArrayList<>();
+        for (int i=0;i<inputJson.size();i++) {
+            Apartment aptFromFireStore= new Apartment("","","","","","",0,0,0,0);
+            aptFromFireStore.setApartmentId(String.valueOf(i));
+            aptFromFireStore.setAddress(inputJson.get(i).getString("address"));
+            if (inputJson.get(i).getString("apartmentImageurl")!=null)
+            {
+                aptFromFireStore.setApartmentImageUrl(inputJson.get(i).getString("apartmentImageurl"));
+            }else
+            {
+                aptFromFireStore.setApartmentImageUrl("https://source.unsplash.com/random");
+            }
+
+            aptFromFireStore.setTenantName(inputJson.get(i).getString("tenantName"));
+            aptFromFireStore.setCity(inputJson.get(i).getString("city"));
+            aptFromFireStore.setZipCode(inputJson.get(i).getString("zipCode"));
+            aptFromFireStore.setArea(inputJson.get(i).getDouble("area"));
+            aptFromFireStore.setRent(inputJson.get(i).getDouble("rent"));
+            aptFromFireStore.setCo2Amount(inputJson.get(i).getDouble("co2Amount"));
+            aptFromFireStore.setResidents((int)Math.round(inputJson.get(i).getDouble("residents")));
+            apartmentsFromFirebase.add(aptFromFireStore);
+
+           /*
+            System.out.println("DEBUG: " + inputJson.get(i).getString("address"));
+            System.out.println("DEBUG: " + inputJson.get(i).getString("apartmentImageurl"));
+            System.out.println("DEBUG: " + inputJson.get(i).getString("zipCode"));
+            System.out.println("DEBUG: " + inputJson.get(i).getDouble("area"));
+            System.out.println("DEBUG: " + inputJson.get(i).getDouble("rent"));
+            System.out.println("DEBUG: " + inputJson.get(i).getDouble("residents"));
+
+            */
+        }
+        //System.out.println("DEBUG: OUT apartmentsFromFireBase size: " + apartmentsFromFirebase.size());
+        initApartments(apartmentsFromFirebase);
+        return apartmentsFromFirebase;
     }
 }

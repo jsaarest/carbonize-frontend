@@ -58,7 +58,7 @@ public class RegisterFragment extends Fragment {
                 }
 
                 //check if all requirements for a good password are met
-                if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\\$%\\^&\\*]).{12,}$")) {
+                if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[-_!@#\\$%\\^&\\*]).{12,}$")) {
                     System.out.println("Password ok");
                 }
                 else{
