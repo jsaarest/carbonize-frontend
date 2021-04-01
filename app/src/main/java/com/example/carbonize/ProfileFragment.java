@@ -66,11 +66,18 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        binding.graphButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openChartDialog();
+            }
+        });
+
         //TODO set revenue and co2 amounts when methods for calculating them have been created.
         String formattedRevenue = String.format("%.0f€", revenue);
         String formattedCo2 = String.format("%.1f", co2).replace(".", ",");
         binding.revenueAmount.setText(formattedRevenue);
-        binding.co2Amount.setText(formattedCo2 + " Co2€");
+        binding.co2Amount.setText(formattedCo2 + " Kg CO2e");
         return view;
     }
 
@@ -78,5 +85,10 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void openChartDialog() {
+        Dialog dialog = new Dialog();
+        dialog.show(getParentFragmentManager(), "BarChartFrag");
     }
 }
