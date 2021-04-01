@@ -87,7 +87,6 @@ public class AddApartment extends Fragment {
                     public void onResponse(String response) {
                         System.out.println(response);
                         result[0] = Float.parseFloat(response);
-                        System.out.println("co2 to add: "+result[0]);
                     }
                 }, new Response.ErrorListener() {
             @Override

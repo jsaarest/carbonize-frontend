@@ -23,7 +23,7 @@ public class EnterFragment extends Fragment {
     Button goToRegisterPage;
 
     public EnterFragment(){};
-    private String currentUser;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +33,7 @@ public class EnterFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        //Error handling to prevent null object exception with Android Studio 4.1.3
-        try{
-            String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        } catch (Exception e) {
-            e.printStackTrace();
-            String currentUser = "";
-        }
-
+        String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_enter, container, false);

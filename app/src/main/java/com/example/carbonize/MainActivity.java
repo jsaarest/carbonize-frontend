@@ -13,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Passing application context onto logger for it to be able to open files
         Context context = getApplicationContext();
-        //Logger logger = new Logger(context);
+        Logger logger = new Logger(context);
     }
 }
