@@ -83,6 +83,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        //add apartment data from FireStore to apartmentsToList -variable
         apartmentsToList = getFireBaseData();
         addNewButton = view.findViewById(R.id.addNewLocation);
         profileButton = view.findViewById(R.id.profile_image);
