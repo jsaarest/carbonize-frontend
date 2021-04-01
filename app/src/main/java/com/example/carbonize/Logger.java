@@ -11,8 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import javax.annotation.Nullable;
+
 public class Logger {
+
+
     private String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+
     private String fileName = "Userdata of " + user + ".csv";
     private static Context context;
 
@@ -41,7 +47,7 @@ public class Logger {
         }
     }
 
-    //If the file does not exists yet, initializes it with header information
+    //If the file does not exist yet, initializes it with header information
     public void initializeFile() {
         try {
             OutputStreamWriter ows = new OutputStreamWriter(context.openFileOutput(fileName, context.MODE_PRIVATE));
@@ -70,4 +76,7 @@ public class Logger {
             e.printStackTrace();
         }
     }
+
 }
+
+
