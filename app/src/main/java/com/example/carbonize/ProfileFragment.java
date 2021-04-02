@@ -80,12 +80,4 @@ public class ProfileFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-<<<<<<< Updated upstream
-=======
-
-    public void openChartDialog() {
-        BarChartFrag chart = new BarChartFrag();
-        chart.show(getParentFragmentManager(), "BarChartFrag");
-    }
->>>>>>> Stashed changes
 }
