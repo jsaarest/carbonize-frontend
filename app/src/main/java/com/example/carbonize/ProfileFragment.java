@@ -1,28 +1,20 @@
 package com.example.carbonize;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.carbonize.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.InputStream;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ProfileFragment extends Fragment {
@@ -34,6 +26,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
@@ -68,8 +61,9 @@ public class ProfileFragment extends Fragment {
 
         binding.graphButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openChartDialog();
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_chartFragment);
+                onDestroyView();
             }
         });
 
@@ -86,9 +80,12 @@ public class ProfileFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+<<<<<<< Updated upstream
+=======
 
     public void openChartDialog() {
-        Dialog dialog = new Dialog();
-        dialog.show(getParentFragmentManager(), "BarChartFrag");
+        BarChartFrag chart = new BarChartFrag();
+        chart.show(getParentFragmentManager(), "BarChartFrag");
     }
+>>>>>>> Stashed changes
 }

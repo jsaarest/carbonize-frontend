@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/chartImage"
         android:layout_width="276dp"
         android:layout_height="271dp"
         app:layout_constraintBottom_toBottomOf="parent"

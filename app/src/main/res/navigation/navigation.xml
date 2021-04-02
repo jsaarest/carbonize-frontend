@@ -84,5 +84,18 @@
         <action
             android:id="@+id/action_profileFragment_to_enterFragment"
             app:destination="@id/enterFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.example.carbonize.ChartFragment"
+        android:label="fragment_chart"
+        tools:layout="@layout/fragment_chart" >
+        <action
+            android:id="@+id/action_chartFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
 </navigation>
