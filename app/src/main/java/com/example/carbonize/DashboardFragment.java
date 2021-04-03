@@ -40,7 +40,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     RecyclerView.Adapter adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
+    public static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
+
     boolean everythingLoaded = false;
 
     // TODO: Customize parameter argument names
@@ -203,5 +204,9 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         //System.out.println("DEBUG: OUT apartmentsFromFireBase size: " + apartmentsFromFirebase.size());
         initApartments(apartmentsFromFirebase);
         return apartmentsFromFirebase;
+    }
+
+    public ArrayList<Apartment> getApartments() {
+        return apartmentsFromFireStore;
     }
 }
