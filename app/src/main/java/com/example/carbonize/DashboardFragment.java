@@ -48,8 +48,11 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     public static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
 
+
     int totalRevenue =0;
     int totalCarbon =0;
+
+
 
     //image numbers for apartment related picsum photo ids
     List<Integer> imageSeed = new ArrayList<>(List.of(1029,1031,1040,1048,1054,1065,1076,1078,142,164,188,193,214,221,234,238,259,263,274,283,288,290,299,308,322,369,

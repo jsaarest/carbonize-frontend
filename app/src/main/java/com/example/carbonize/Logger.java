@@ -1,12 +1,7 @@
 package com.example.carbonize;
 
 import android.content.Context;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -35,9 +30,11 @@ public class Logger {
         if (file.length() == 0) {
             initializeFile();
             writeFile(address, city, zipCode, residents, tenantName, area, rent, co2);
+            System.out.println("Created a new user data file.");
         }
         else {
             writeFile(address, city, zipCode, residents, tenantName, area, rent, co2);
+            System.out.println("Written to existing user data file");
         }
     }
 

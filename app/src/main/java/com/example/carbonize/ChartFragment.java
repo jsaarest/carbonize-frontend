@@ -1,5 +1,6 @@
 package com.example.carbonize;
 
+
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -7,11 +8,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.example.carbonize.databinding.FragmentChartBinding;
-import com.example.carbonize.databinding.FragmentProfileBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -27,9 +24,9 @@ import java.util.ArrayList;
 public class ChartFragment extends Fragment {
     private FragmentChartBinding binding;
     private BarChart chart;
-    private double totalRevenue = 0;
-    private double totalCo2 = 0;
-    private DashboardFragment dash;
+    DashboardFragment dashboard = new DashboardFragment();
+    private double totalRevenue = dashboard.totalRevenue;
+    private double totalCo2 = dashboard.totalCarbon;
     private static ArrayList<Apartment> apartments = new ArrayList<Apartment>();
 
     @Override
@@ -46,8 +43,7 @@ public class ChartFragment extends Fragment {
         chart = binding.chart;
 
         //Initializing apartments list with data fetched in dashboard
-        dash = new DashboardFragment();
-        apartments = dash.getApartments();
+        apartments = dashboard.apartmentsFromFireStore;
 
         //Styling and creating the barchart
         styleChart();
@@ -109,19 +105,26 @@ public class ChartFragment extends Fragment {
         ArrayList<BarEntry> rentEntries = new ArrayList<>();
         ArrayList<BarEntry> co2Entries = new ArrayList<>();
         ArrayList<String> addresses = new ArrayList<>();
+        String streetName;
 
-        //Get the chart values from arraylist of apartments and calculate totals
+        //Get the chart values from arraylist of apartments
         for (int i = 0; i<apartmentsFromFireStore.size(); i++) {
             rentEntries.add(new BarEntry(i, (float) apartments.get(i).getRent()));
             co2Entries.add(new BarEntry(i, (float) apartments.get(i).getCo2Amount()));
-            addresses.add(apartments.get(i).getAddress());
-            totalRevenue = totalRevenue + apartments.get(i).getRent();
-            totalCo2 = totalCo2 + apartments.get(i).getCo2Amount();
+            streetName = apartments.get(i).getAddress();
+            //Method to limit the X axis label name length to prevent overlapping due to the MPAndroidChart library not supporting multi-lined labels.
+            if (streetName.length() > 19) {
+                String[] splitName = streetName.split("(?<=\\G.{19})");
+                addresses.add(splitName[0]);
+            }
+            else {
+                addresses.add(apartments.get(i).getAddress());
+            }
         }
 
         //Set total value texts
         String formattedRevenue = String.format("%.0f€", totalRevenue);
-        String formattedCo2 = String.format("%.0fKg CO2e", totalCo2);
+        String formattedCo2 = String.format("%.0f Kg CO2e", totalCo2);
         binding.totalRevenueText.setText("Total monthly revenue: " + formattedRevenue);
         binding.totalCo2Text.setText("Total monthly emissions: " + formattedCo2);
 
@@ -143,7 +146,7 @@ public class ChartFragment extends Fragment {
         chart.getXAxis().setAxisMaximum(0 + chart.getBarData().getGroupWidth(groupSpace,barSpace) * apartments.size());
         chart.groupBars(0, groupSpace, barSpace);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(addresses));
-        chart.setVisibleXRangeMaximum(3);
+        chart.setVisibleXRangeMaximum(2);
 
         //Refresh
         chart.invalidate();
