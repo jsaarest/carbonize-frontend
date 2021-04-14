@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -47,6 +48,10 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     boolean everythingLoaded = false;
     int totalRevenue =0;
     int totalCarbon =0;
+
+    List<Integer> imageSeed = new ArrayList<>(List.of(1029,1031,1040,1048,1054,1065,1076,1078,142,164,188,193,214,221,234,238,259,263,274,283,288,290,299,308,322,369,
+            391,398,297,405,410,411,437,448,514,552,57,58,594,622));
+
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -184,7 +189,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
                 aptFromFireStore.setApartmentImageUrl(inputJson.get(i).getString("apartmentImageurl"));
             }else
             {
-                aptFromFireStore.setApartmentImageUrl("https://source.unsplash.com/random");
+                String rndImg = randomImageUrl();
+                aptFromFireStore.setApartmentImageUrl("https://picsum.photos/id/"+rndImg+"/300/300");
             }
 
             aptFromFireStore.setTenantName(inputJson.get(i).getString("tenantName"));
@@ -219,5 +225,14 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
     public ArrayList<Apartment> getApartments() {
         return apartmentsFromFireStore;
+    }
+
+    public String randomImageUrl ()
+    // Method to return random image number of a building in Picsum.photos
+    {
+        Random r = new Random();
+        int randomImageIndex = r.nextInt(imageSeed.size());
+        String randomImageUrlString = imageSeed.get(randomImageIndex).toString();
+        return randomImageUrlString;
     }
 }
