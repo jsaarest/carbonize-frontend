@@ -7,11 +7,9 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-    viewBinding {
-        enabled = true
-    }
 
     buildFeatures {
+        dataBinding = true
         viewBinding = true
     }
 
@@ -57,4 +55,9 @@ dependencies {
     //Circular image view
     //https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //Picasso
+    //For adding images in recyclerview component
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    // For drawing charts
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

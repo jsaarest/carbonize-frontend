@@ -19,6 +19,16 @@ public class Apartment {
     private String zipCode;
     private String city;
     private String owner;
+
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+    }
+
+    private String tenantName;
     private String apartmentImageUrl;
     private Integer residents;
     private String tenantName;
@@ -42,6 +52,46 @@ public class Apartment {
 
     public String getApartmentId() {
         return apartmentId;
+    }
+
+    public void setApartmentId(String apartmentId) {
+        this.apartmentId = apartmentId;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setApartmentImageUrl(String apartmentImageUrl) {
+        this.apartmentImageUrl = apartmentImageUrl;
+    }
+
+    public void setResidents(Integer residents) {
+        this.residents = residents;
+    }
+
+    public void setCo2Amount(double co2Amount) {
+        this.co2Amount = co2Amount;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    public void setRent(double rent) {
+        this.rent = rent;
     }
 
     public String getAddress() {
