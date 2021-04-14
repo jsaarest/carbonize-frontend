@@ -96,8 +96,9 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         apartmentsToList = getFireBaseData();
         addNewButton = view.findViewById(R.id.addNewLocation);
         profileButton = view.findViewById(R.id.profile_image);
-        this.totalCo2 = view.findViewById(R.id.txtTotalCo2);
-        this.totalEur = view.findViewById(R.id.txtTotalRent);
+        totalCo2 = view.findViewById(R.id.txtTotalCo2);
+        totalEur = view.findViewById(R.id.txtTotalRent);
+
 
         this.apartments = view.findViewById(R.id.rclLocationList);
 
@@ -218,6 +219,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
         System.out.println("DEBUG: total co2 " +totalCarbon);
         System.out.println("DEBUG: total eur " +totalRevenue);
+        totalCo2.setText(String.valueOf(totalCarbon) + " CO2e");
+        totalEur.setText(String.valueOf(totalRevenue)+ " €");
 
         initApartments(apartmentsFromFirebase);
         return apartmentsFromFirebase;
