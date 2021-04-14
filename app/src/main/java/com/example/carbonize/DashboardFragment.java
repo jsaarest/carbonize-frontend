@@ -48,10 +48,9 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     public static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
 
-
-    int totalRevenue =0;
-    int totalCarbon =0;
-
+    //public variables for other fragments
+    public static int totalRevenue =0;
+    public static int totalCarbon =0;
 
 
     //image numbers for apartment related picsum photo ids
@@ -197,6 +196,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     Parse apartment data ready to be added to the Recyclerview
     Method returns user's every apartment in an ArrayList<Apartment>
      */
+        totalCarbon=0;
+        totalRevenue=0;
         ArrayList<Apartment> apartmentsFromFirebase = new ArrayList<>();
         for (int i=0;i<inputJson.size();i++) {
             Apartment aptFromFireStore= new Apartment("","","","","","",0,0,0,0);
@@ -231,8 +232,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
         totalCo2.setText(String.valueOf(totalCarbon) + " Kg CO2e");
         totalEur.setText(String.valueOf(totalRevenue)+ " €");
-        totalCarbon=0;
-        totalRevenue=0;
+
 
 
         initApartments(apartmentsFromFirebase);
