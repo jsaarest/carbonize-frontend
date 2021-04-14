@@ -63,8 +63,8 @@ public class LoginFragment extends Fragment {
 
                             System.out.println("ERROR: Login not successful");
                             AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-                            alertDialog.setTitle("Login failed!");
-                            alertDialog.setMessage("Login failed! Please check your password.");
+                            alertDialog.setTitle("Login failed");
+                            alertDialog.setMessage("Incorrect username or password.");
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
