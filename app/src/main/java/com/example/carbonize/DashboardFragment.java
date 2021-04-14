@@ -222,8 +222,6 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         initApartments(apartmentsFromFirebase);
         return apartmentsFromFirebase;
     }
-<<<<<<< HEAD
-=======
 
     public ArrayList<Apartment> getApartments() {
         return apartmentsFromFireStore;
@@ -237,5 +235,4 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         String randomImageUrlString = imageSeed.get(randomImageIndex).toString();
         return randomImageUrlString;
     }
->>>>>>> 2e2d5543a58f8e39455473740489659a859a7a75
 }
