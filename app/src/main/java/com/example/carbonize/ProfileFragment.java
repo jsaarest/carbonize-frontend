@@ -18,19 +18,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ProfileFragment extends Fragment {
-    //https://medium.com/androiddevelopers/use-view-binding-to-replace-findviewbyid-c83942471fc
     private FragmentProfileBinding binding;
     private FirebaseAuth mAuth;
-    private double revenue = 1234;
-    private double co2 = 100;
+    DashboardFragment dashboard = new DashboardFragment();
+    private double revenue = dashboard.totalRevenue;
+    private double co2 = dashboard.totalCarbon;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +57,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //On graph button resets this fragment and takes the user to the graph view
         binding.graphButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,14 +66,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        //TODO set revenue and co2 amounts when methods for calculating them have been created.
         String formattedRevenue = String.format("%.0f€", revenue);
-        String formattedCo2 = String.format("%.1f", co2).replace(".", ",");
+        String formattedCo2 = String.format("%.0f", co2).replace(".", ",");
         binding.revenueAmount.setText(formattedRevenue);
         binding.co2Amount.setText(formattedCo2 + " Kg CO2e");
         return view;
     }
 
+    //Method to reset the fragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
