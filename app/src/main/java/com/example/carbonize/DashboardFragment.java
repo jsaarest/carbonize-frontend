@@ -1,9 +1,11 @@
 package com.example.carbonize;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -33,6 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A fragment representing a list of Apartment Items.
  */
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class DashboardFragment extends Fragment implements Dialog.DialogListener {
 
     Button addNewButton;
@@ -201,7 +204,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             aptFromFireStore.setRent(inputJson.get(i).getDouble("rent"));
             totalRevenue +=inputJson.get(i).getDouble("rent");
 
-            aptFromFireStore.setCo2Amount(inputJson.get(i).getDouble("co2Amount"));
+            aptFromFireStore.setCo2Amount(doubleRound(inputJson.get(i).getDouble("co2Amount"),1));
+
             totalCarbon += inputJson.get(i).getDouble("co2Amount");
             aptFromFireStore.setResidents((int)Math.round(inputJson.get(i).getDouble("residents")));
             apartmentsFromFirebase.add(aptFromFireStore);
@@ -237,5 +241,9 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         int randomImageIndex = r.nextInt(imageSeed.size());
         String randomImageUrlString = imageSeed.get(randomImageIndex).toString();
         return randomImageUrlString;
+    }
+    private static double doubleRound (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 }
