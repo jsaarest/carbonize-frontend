@@ -90,7 +90,7 @@
     <TextView
         android:id="@+id/titleRent"
         android:layout_width="53dp"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="40dp"
         android:text="Rent (€)"
@@ -103,11 +103,11 @@
 
     <TextView
         android:id="@+id/titleCo2e"
-        android:layout_width="53dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="80dp"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="60dp"
-        android:text="CO2e (kg)"
+        android:text="CO2e (Kg)"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#4CAF50"
         android:textSize="14sp"

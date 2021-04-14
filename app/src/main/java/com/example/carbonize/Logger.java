@@ -34,7 +34,7 @@ public class Logger {
         }
         else {
             writeFile(address, city, zipCode, residents, tenantName, area, rent, co2);
-            System.out.println("Written to existing user data file");
+            System.out.println("Apartment written to existing user data file");
         }
     }
 

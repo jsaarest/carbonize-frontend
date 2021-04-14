@@ -66,7 +66,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        String formattedRevenue = String.format("%.0f€", revenue);
+        String formattedRevenue = String.format("%.0f €", revenue);
         String formattedCo2 = String.format("%.0f", co2).replace(".", ",");
         binding.revenueAmount.setText(formattedRevenue);
         binding.co2Amount.setText(formattedCo2 + " Kg CO2e");
