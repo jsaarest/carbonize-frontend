@@ -228,6 +228,9 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
         totalCo2.setText(String.valueOf(totalCarbon) + " CO2e");
         totalEur.setText(String.valueOf(totalRevenue)+ " €");
+        totalCarbon=0;
+        totalRevenue=0;
+
 
         initApartments(apartmentsFromFirebase);
         return apartmentsFromFirebase;
