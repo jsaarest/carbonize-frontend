@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,8 +27,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class AddApartment extends Fragment {
 
@@ -47,9 +59,13 @@ public class AddApartment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_add_apartment, container, false);
-
 
         // Find views for text fields
         address = v.findViewById(R.id.address);
@@ -62,14 +78,24 @@ public class AddApartment extends Fragment {
         zipCode = v.findViewById(R.id.zipCode);
         tenantName = v.findViewById(R.id.tenantNameField);
 
-        button.setOnClickListener(v1 -> addApartmentToDatabase(v));
+        button.setOnClickListener(v1 -> {
+            try {
+                addApartmentToDatabase(v);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+        });
         backToDashboardButton.setOnClickListener(v1 -> Navigation.findNavController(v).navigate(R.id.action_addApartment_to_dashboardFragment));
 
 
         return v;
     }
 
-    private float calculateResults(){
+    private float calculateResults() throws ParserConfigurationException, IOException, SAXException {
 
         double cArea = Double.parseDouble(String.valueOf(area.getText()));
         int cResidents = Integer.parseInt(String.valueOf(residents.getText()));
@@ -80,6 +106,7 @@ public class AddApartment extends Fragment {
         String url ="https://ilmastodieetti.ymparisto.fi/ilmastodieetti";
         String api = "/calculatorapi/v1/HousingCalculator/InfrastructureEstimate?type=family&area=" + cArea + "&residents=" + cResidents;
 
+
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url + api,
                 new Response.Listener<String>() {
@@ -87,7 +114,9 @@ public class AddApartment extends Fragment {
                     public void onResponse(String response) {
                         System.out.println(response);
                         result[0] = Float.parseFloat(response);
+                        databaseHandler(result[0]);
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -97,15 +126,15 @@ public class AddApartment extends Fragment {
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-        return result[0];
 
+        return result[0];
     };
 
     private String getTextAndTrim(EditText s){
         return s.getText().toString().trim();
     }
 
-    private void addApartmentToDatabase(View v){
+    private void addApartmentToDatabase(View v) throws IOException, SAXException, ParserConfigurationException {
 
         // Make some checking if there is data inserted
         if(TextUtils.isEmpty(getTextAndTrim(address))){
@@ -120,16 +149,21 @@ public class AddApartment extends Fragment {
             area.setError("Please, insert the area");
             return;
         }
+        float carbon = calculateResults();
 
-        // Get CO2 amount from API
-        float co2Amount = calculateResults();
+    }
+    private void databaseHandler(float carbonAmount)
+    {
+        System.out.println("DEBUG: carbonAmount: " + carbonAmount);
+
+        float co2Amount = 0;
         // Create a new apartment with data
         Map<String, Object> apartment = new HashMap<>();
         apartment.put("address", address.getText().toString());
         apartment.put("apartmentImageUrl", "https://source.unsplash.com/random");
         apartment.put("area", Float.parseFloat(String.valueOf(area.getText())));
         apartment.put("city", city.getText().toString());
-        apartment.put("co2Amount", co2Amount);
+        apartment.put("co2Amount", carbonAmount);
         apartment.put("owner", currentUser);
         apartment.put("rent", Float.parseFloat(String.valueOf(monthlyRent.getText())));
         apartment.put("residents", Integer.parseInt(String.valueOf(residents.getText())));
@@ -147,8 +181,10 @@ public class AddApartment extends Fragment {
                         Logger.getInstance().logApartment(address.getText().toString(), city.getText().toString(), zipCode.getText().toString(),
                                 Integer.parseInt(String.valueOf(residents.getText())), tenantName.getText().toString(),
                                 Float.parseFloat(String.valueOf(area.getText())), Float.parseFloat(String.valueOf(monthlyRent.getText())), co2Amount);
-                        Navigation.findNavController(v).navigate(R.id.action_addApartment_to_dashboardFragment);
+                        Navigation.findNavController(getView()).navigate(R.id.action_addApartment_to_dashboardFragment);
+
                     }
+
 
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -156,8 +192,8 @@ public class AddApartment extends Fragment {
                     public void onFailure(@NonNull Exception e) {
                         Log.w("ERR", "Error adding document", e);
                     }
+
                 });
     }
-
 
 }
