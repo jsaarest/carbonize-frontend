@@ -181,7 +181,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
         ArrayList<Apartment> apartmentsFromFirebase = new ArrayList<>();
         for (int i=0;i<inputJson.size();i++) {
-            Apartment aptFromFireStore= new Apartment("","","","","","",0,0,0,0);
+            Apartment aptFromFireStore= new Apartment("","","","","","","",0,0,0, 0);
             aptFromFireStore.setApartmentId(String.valueOf(i));
             aptFromFireStore.setAddress(inputJson.get(i).getString("address"));
             if (inputJson.get(i).getString("apartmentImageurl")!=null)
@@ -218,6 +218,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
         System.out.println("DEBUG: total co2 " +totalCarbon);
         System.out.println("DEBUG: total eur " +totalRevenue);
+        //totalEur.setText(String.valueOf(totalRevenue));
 
         initApartments(apartmentsFromFirebase);
         return apartmentsFromFirebase;

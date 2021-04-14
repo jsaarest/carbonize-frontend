@@ -31,7 +31,6 @@ public class Apartment {
     private String tenantName;
     private String apartmentImageUrl;
     private Integer residents;
-    private String tenantName;
     private double co2Amount;
     private double area;
     private double rent;

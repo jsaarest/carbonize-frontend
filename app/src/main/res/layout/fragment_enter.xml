@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/titleText"
-        android:layout_width="315dp"
+        android:layout_width="match_parent"
         android:layout_height="135dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="208dp"
@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/bodyText"
-        android:layout_width="314dp"
+        android:layout_width="match_parent"
         android:layout_height="143dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
@@ -47,8 +47,10 @@
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="339dp"
+        android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="92dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,8 +59,10 @@
 
     <Button
         android:id="@+id/goToLoginView"
-        android:layout_width="339dp"
+        android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#FFFFFF"
         android:text="Login"

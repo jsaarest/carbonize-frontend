@@ -72,7 +72,7 @@ public class RegisterFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             System.out.println("User created");
-                            // TODO NAVIGATE INSIDE APP DASHBOARD
+                            // After succesfull registration, navigate to dashboard
                             Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_dashboardFragment);
                         } else {
                             //one last check if firebase accepted the credentials. If not, the reason is email.

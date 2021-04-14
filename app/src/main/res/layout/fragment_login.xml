@@ -19,8 +19,10 @@
 
     <Button
         android:id="@+id/loginWithEmail"
-        android:layout_width="339dp"
+        android:layout_width="0dp"
         android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,9 +31,11 @@
 
     <EditText
         android:id="@+id/loginPassword"
-        android:layout_width="345dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="***********"
         android:inputType="textPassword"
@@ -41,9 +45,11 @@
 
     <EditText
         android:id="@+id/loginEmail"
-        android:layout_width="345dp"
+        android:layout_width="match_parent"
         android:layout_height="51dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="252dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="john@example.com"
         android:inputType="textEmailAddress"
@@ -53,8 +59,10 @@
 
     <TextView
         android:id="@+id/contentTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:text="Login"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -62,7 +70,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/loginEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent" />
 
 

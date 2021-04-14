@@ -43,7 +43,12 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class AddApartment extends Fragment {
 
-    EditText address, zipCode, city, residents, monthlyRent, area, tenantName;
+    EditText addressEditText, zipCodeEditText, cityEditText, residentsEditText, monthlyRentEditText, areaEditText, tenantNameEditText;
+
+    String address, city, tenantName, zipCode;
+    Double area, monthlyRent;
+    Integer residents;
+
     Button button;
     Button backToDashboardButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -68,24 +73,22 @@ public class AddApartment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_apartment, container, false);
 
         // Find views for text fields
-        address = v.findViewById(R.id.address);
-        residents = v.findViewById(R.id.residents);
         button = v.findViewById(R.id.button);
         backToDashboardButton = v.findViewById(R.id.backToDashboardButton);
-        area = v.findViewById(R.id.area);
-        monthlyRent = v.findViewById(R.id.monthlyRent);
-        city = v.findViewById(R.id.city);
-        zipCode = v.findViewById(R.id.zipCode);
-        tenantName = v.findViewById(R.id.tenantNameField);
+        addressEditText = v.findViewById(R.id.address);
+        residentsEditText = v.findViewById(R.id.residents);
+        areaEditText = v.findViewById(R.id.area);
+        monthlyRentEditText = v.findViewById(R.id.monthlyRent);
+        cityEditText = v.findViewById(R.id.city);
+        zipCodeEditText = v.findViewById(R.id.zipCode);
+        tenantNameEditText = v.findViewById(R.id.tenantNameField);
 
         button.setOnClickListener(v1 -> {
             try {
                 addApartmentToDatabase(v);
-            } catch (IOException e) {
+            } catch (IOException | ParserConfigurationException e) {
                 e.printStackTrace();
             } catch (SAXException e) {
-                e.printStackTrace();
-            } catch (ParserConfigurationException e) {
                 e.printStackTrace();
             }
         });
@@ -96,9 +99,9 @@ public class AddApartment extends Fragment {
     }
 
     private float calculateResults() throws ParserConfigurationException, IOException, SAXException {
-
-        double cArea = Double.parseDouble(String.valueOf(area.getText()));
-        int cResidents = Integer.parseInt(String.valueOf(residents.getText()));
+        // Calls API and returns the CO2 amount of the apartment based on inputs
+        double cArea = Double.parseDouble(String.valueOf(areaEditText.getText()));
+        int cResidents = Integer.parseInt(String.valueOf(residentsEditText.getText()));
         final float[] result = new float[1];
 
         // Instantiate the RequestQueue.
@@ -137,16 +140,16 @@ public class AddApartment extends Fragment {
     private void addApartmentToDatabase(View v) throws IOException, SAXException, ParserConfigurationException {
 
         // Make some checking if there is data inserted
-        if(TextUtils.isEmpty(getTextAndTrim(address))){
-            address.setError("Please, provide an address");
+        if(TextUtils.isEmpty(getTextAndTrim(addressEditText))){
+            addressEditText.setError("Please, provide an address");
             return;
         }
-        if(TextUtils.isEmpty(getTextAndTrim(residents))){
-            residents.setError("Please, insert the amount of residents");
+        if(TextUtils.isEmpty(getTextAndTrim(residentsEditText))){
+            residentsEditText.setError("Please, insert the amount of residents");
             return;
         }
-        if(TextUtils.isEmpty(getTextAndTrim(area))){
-            area.setError("Please, insert the area");
+        if(TextUtils.isEmpty(getTextAndTrim(areaEditText))){
+            areaEditText.setError("Please, insert the area");
             return;
         }
         float carbon = calculateResults();
@@ -154,21 +157,29 @@ public class AddApartment extends Fragment {
     }
     private void databaseHandler(float carbonAmount)
     {
-        System.out.println("DEBUG: carbonAmount: " + carbonAmount);
+        //System.out.println("DEBUG: carbonAmount: " + carbonAmount);
+
+        address = addressEditText.getText().toString();
+        residents = Integer.parseInt(String.valueOf(residentsEditText.getText()));
+        area = Double.parseDouble(String.valueOf(areaEditText.getText()));
+        monthlyRent = Double.parseDouble(String.valueOf(monthlyRentEditText.getText()));
+        city = cityEditText.getText().toString();
+        zipCode = zipCodeEditText.getText().toString();
+        tenantName = tenantNameEditText.getText().toString();
 
         float co2Amount = 0;
         // Create a new apartment with data
         Map<String, Object> apartment = new HashMap<>();
-        apartment.put("address", address.getText().toString());
+        apartment.put("address", address);
         apartment.put("apartmentImageUrl", "https://source.unsplash.com/random");
-        apartment.put("area", Float.parseFloat(String.valueOf(area.getText())));
-        apartment.put("city", city.getText().toString());
+        apartment.put("area", area);
+        apartment.put("city", city);
         apartment.put("co2Amount", carbonAmount);
         apartment.put("owner", currentUser);
-        apartment.put("rent", Float.parseFloat(String.valueOf(monthlyRent.getText())));
-        apartment.put("residents", Integer.parseInt(String.valueOf(residents.getText())));
-        apartment.put("zipCode", zipCode.getText().toString());
-        apartment.put("tenantName", tenantName.getText().toString());
+        apartment.put("rent", monthlyRent);
+        apartment.put("residents", residents);
+        apartment.put("zipCode", zipCode);
+        apartment.put("tenantName", tenantName);
 
         // Add a new document with a generated ID
         db.collection("apartments")
@@ -178,9 +189,7 @@ public class AddApartment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("ADDED", "New apartment added with ID: " + documentReference.getId());
                         //Add the apartment data to a .csv file
-                        Logger.getInstance().logApartment(address.getText().toString(), city.getText().toString(), zipCode.getText().toString(),
-                                Integer.parseInt(String.valueOf(residents.getText())), tenantName.getText().toString(),
-                                Float.parseFloat(String.valueOf(area.getText())), Float.parseFloat(String.valueOf(monthlyRent.getText())), co2Amount);
+                        Logger.getInstance().logApartment(address, city, zipCode, residents, tenantName, area, monthlyRent, co2Amount);
                         Navigation.findNavController(getView()).navigate(R.id.action_addApartment_to_dashboardFragment);
 
                     }

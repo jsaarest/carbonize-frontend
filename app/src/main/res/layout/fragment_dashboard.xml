@@ -22,13 +22,12 @@
         android:id="@+id/contentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="35dp"
         android:text="Dashboard"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#232B37"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,30 +63,29 @@
         android:id="@+id/titleLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
         android:text="Location"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#9EA19E"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTotalRent" />
+        app:layout_constraintBottom_toTopOf="@+id/rclLocationList"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/titleRent"
-        android:layout_width="53dp"
+        android:layout_width="0dp"
         android:layout_height="15dp"
-        android:layout_marginStart="268dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="20dp"
         android:text="Rent"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#9EA19E"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/titleLocation"
-        app:layout_constraintTop_toBottomOf="@+id/txtTotalRent" />
+        app:layout_constraintBottom_toTopOf="@+id/rclLocationList"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/txtTotalRent"
@@ -105,12 +103,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rclLocationList"
-        android:layout_width="380dp"
-        android:layout_height="339dp"
-        android:layout_marginBottom="31dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/addNewLocation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTotalCo2" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
