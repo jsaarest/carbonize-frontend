@@ -45,8 +45,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     public static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
 
     boolean everythingLoaded = false;
-    int totalRevenue =0;
-    int totalCarbon =0;
+    public static int totalRevenue = 0;
+    public static int totalCarbon = 0;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -215,9 +215,5 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
         initApartments(apartmentsFromFirebase);
         return apartmentsFromFirebase;
-    }
-
-    public ArrayList<Apartment> getApartments() {
-        return apartmentsFromFireStore;
     }
 }
