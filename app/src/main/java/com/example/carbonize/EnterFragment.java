@@ -49,7 +49,7 @@ public class EnterFragment extends Fragment {
         goToRegisterPage = view.findViewById(R.id.registerButton);
 
         // If previous log in is found, redirect straight to dashboard
-        if (currentUser != null) {
+        if (currentUser != null && currentUser.trim() != "") {
             // User is signed in
             Log.d("info", "AuthState: User found: " + currentUser);
             NavHostFragment.findNavController(this).navigate(R.id.action_enterFragment_to_dashboardFragment, null);

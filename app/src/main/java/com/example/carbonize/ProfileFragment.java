@@ -1,9 +1,11 @@
 package com.example.carbonize;
 
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -17,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private FirebaseAuth mAuth;
@@ -69,7 +72,7 @@ public class ProfileFragment extends Fragment {
         String formattedRevenue = String.format("%.0f €", revenue);
         String formattedCo2 = String.format("%.0f", co2).replace(".", ",");
         binding.revenueAmount.setText(formattedRevenue);
-        binding.co2Amount.setText(formattedCo2 + " Kg CO2e");
+        binding.co2Amount.setText(formattedCo2 + " kg CO2e");
         return view;
     }
 

@@ -51,8 +51,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     public static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
 
     //public variables for other fragments
-    public static int totalRevenue =0;
-    public static int totalCarbon =0;
+    public static double totalRevenue =0;
+    public static double totalCarbon =0;
 
 
     //image numbers for apartment related picsum photo ids
@@ -222,14 +222,14 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             aptFromFireStore.setRent(inputJson.get(i).getDouble("rent"));
 
             //add rent euros to total revenue amount to be added to UI
-            totalRevenue +=inputJson.get(i).getDouble("rent");
+            totalRevenue += doubleRound(inputJson.get(i).getDouble("rent"),1);
             totalEur.setText(String.valueOf(totalRevenue) + " €");
 
             aptFromFireStore.setCo2Amount(doubleRound(inputJson.get(i).getDouble("co2Amount"),1));
 
             //add co2e to total carbon amount to be added to UI
-            totalCarbon += inputJson.get(i).getDouble("co2Amount");
-            totalCo2.setText(String.valueOf(totalCarbon) + "Kg Co2e");
+            totalCarbon += doubleRound(inputJson.get(i).getDouble("co2Amount"),1);
+            totalCo2.setText(String.valueOf(totalCarbon) + " kg CO2e");
             aptFromFireStore.setResidents((int)Math.round(inputJson.get(i).getDouble("residents")));
             apartmentsFromFirebase.add(aptFromFireStore);
 
