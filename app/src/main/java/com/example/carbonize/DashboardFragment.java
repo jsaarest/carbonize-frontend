@@ -23,7 +23,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -201,7 +203,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         totalRevenue=0;
         ArrayList<Apartment> apartmentsFromFirebase = new ArrayList<>();
         for (int i=0;i<inputJson.size();i++) {
-            Apartment aptFromFireStore= new Apartment("","","","","","","",0,0,0, 0);
+            Apartment aptFromFireStore= new Apartment("","","","","","","",0,0,0, 0, 0);
             aptFromFireStore.setApartmentId(String.valueOf(i));
             aptFromFireStore.setAddress(inputJson.get(i).getString("address"));
             if (inputJson.get(i).getString("apartmentImageurl")!=null)
@@ -221,11 +223,13 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
             //add rent euros to total revenue amount to be added to UI
             totalRevenue +=inputJson.get(i).getDouble("rent");
+            totalEur.setText(String.valueOf(totalRevenue) + " €");
 
             aptFromFireStore.setCo2Amount(doubleRound(inputJson.get(i).getDouble("co2Amount"),1));
 
             //add co2e to total carbon amount to be added to UI
             totalCarbon += inputJson.get(i).getDouble("co2Amount");
+            totalCo2.setText(String.valueOf(totalCarbon) + "Kg Co2e");
             aptFromFireStore.setResidents((int)Math.round(inputJson.get(i).getDouble("residents")));
             apartmentsFromFirebase.add(aptFromFireStore);
 
