@@ -2,7 +2,10 @@ package com.example.carbonize;
 
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
@@ -21,6 +24,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 
 
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class ChartFragment extends Fragment {
     private FragmentChartBinding binding;
     private BarChart chart;
@@ -130,7 +134,7 @@ public class ChartFragment extends Fragment {
 
         //Initialize bar chart
         BarDataSet revenue = new BarDataSet(rentEntries, "Monthly revenue [€]");
-        BarDataSet co2 = new BarDataSet(co2Entries, "Monthly emissions [Kg CO2e]");
+        BarDataSet co2 = new BarDataSet(co2Entries, "Monthly emissions [kg CO2e]");
         revenue.setColor(Color.BLUE);
         co2.setColor(Color.GREEN);
         revenue.setValueTextSize(15f);
