@@ -211,7 +211,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
                 aptFromFireStore.setApartmentImageUrl(inputJson.get(i).getString("apartmentImageurl"));
             }else
             {
-                String rndImg = randomImageUrl();
+                String rndImg = new ImageRandomizer().getRandomApartmentImage();
                 aptFromFireStore.setApartmentImageUrl("https://picsum.photos/id/"+rndImg+"/300/300");
             }
 
@@ -248,14 +248,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         return apartmentsFromFireStore;
     }
 
-    public String randomImageUrl ()
-    // Method to return random image number of a building in Picsum.photos
-    {
-        Random r = new Random();
-        int randomImageIndex = r.nextInt(imageSeed.size());
-        String randomImageUrlString = imageSeed.get(randomImageIndex).toString();
-        return randomImageUrlString;
-    }
+
     private static double doubleRound (double value, int precision) {
         /*
         tool method to round a double to wanted precision
