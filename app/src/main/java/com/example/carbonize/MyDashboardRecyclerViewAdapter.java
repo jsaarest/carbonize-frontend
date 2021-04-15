@@ -3,6 +3,7 @@ package com.example.carbonize;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +33,14 @@ public class MyDashboardRecyclerViewAdapter extends RecyclerView.Adapter<MyDashb
         return new ViewHolder(v);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Apartment apartment = apartments.get(position);
         holder.apartmentAddress.setText(apartment.getAddress());
         holder.apartmentOwner.setText(apartment.getTenantName());
-        holder.apartmentRent.setText(String.valueOf(apartment.getRent()));
-        holder.apartmentCo2.setText(String.valueOf(apartment.getCo2Amount()));
+        holder.apartmentRent.setText(apartment.getRent() + " €");
+        holder.apartmentCo2.setText(String.valueOf(apartment.getCo2Amount()) + " Co2e");
         Picasso.get().load(apartment.getApartmentImageUrl()).into(holder.dashImageView);
 
     }

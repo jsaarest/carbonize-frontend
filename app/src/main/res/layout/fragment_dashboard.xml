@@ -11,12 +11,14 @@
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:text="Add new"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rclLocationList" />
 
     <TextView
         android:id="@+id/contentTitle"
@@ -106,6 +108,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/addNewLocation"
         app:layout_constraintEnd_toEndOf="parent"
