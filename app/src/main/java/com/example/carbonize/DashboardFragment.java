@@ -162,6 +162,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
         db.getInstance()
                 .collection("apartments")
+                .whereEqualTo("owner", currentUser ) // Only query documents that belong to user
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
