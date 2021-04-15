@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 
 import android.util.Log;
@@ -47,11 +48,11 @@ public class EnterFragment extends Fragment {
         goToLoginPage = view.findViewById(R.id.goToLoginView);
         goToRegisterPage = view.findViewById(R.id.registerButton);
 
-        // If previous log in is found, pressing login will redirect straight to dashboard
+        // If previous log in is found, redirect straight to dashboard
         if (currentUser != null) {
             // User is signed in
             Log.d("info", "AuthState: User found: " + currentUser);
-            goToLoginPage.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_enterFragment_to_dashboardFragment, null));
+            NavHostFragment.findNavController(this).navigate(R.id.action_enterFragment_to_dashboardFragment, null);
         } else {
             // User is signed out
             goToLoginPage.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_enterFragment_to_loginFragment, null));
