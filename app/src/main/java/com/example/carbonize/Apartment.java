@@ -34,8 +34,9 @@ public class Apartment {
     private double co2Amount;
     private double area;
     private double rent;
+    private Long createdAt;
 
-    public Apartment(String apartmentId, String address, String zipCode, String city, String owner, String apartmentImageUrl, String tenantName, Integer residents, double co2Amount, double area, double rent) {
+    public Apartment(String apartmentId, String address, String zipCode, String city, String owner, String apartmentImageUrl, String tenantName, Integer residents, double co2Amount, double area, double rent, long createdAt) {
         this.apartmentId = apartmentId;
         this.address = address;
         this.zipCode = zipCode;
@@ -47,6 +48,7 @@ public class Apartment {
         this.area = area;
         this.rent = rent;
         this.tenantName = tenantName;
+        this.createdAt = createdAt;
     }
 
     public String getApartmentId() {
@@ -95,6 +97,14 @@ public class Apartment {
 
     public String getAddress() {
         return address;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getCreatedAt() {
+        return createdAt;
     }
 
     public String getZipCode() {

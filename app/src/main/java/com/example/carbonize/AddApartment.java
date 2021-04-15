@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,6 +35,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +50,7 @@ public class AddApartment extends Fragment {
     String address, city, tenantName, zipCode;
     Double area, monthlyRent;
     Integer residents;
+    Integer timestamp;
 
     Button button;
     Button backToDashboardButton;
@@ -167,6 +170,10 @@ public class AddApartment extends Fragment {
         zipCode = zipCodeEditText.getText().toString();
         tenantName = tenantNameEditText.getText().toString();
 
+        // Create a timestamp, so we can sort the list in dashboard later
+        Date date = new Date();
+        Long timestamp = date.getTime();
+
         float co2Amount = 0;
         // Create a new apartment with data
         Map<String, Object> apartment = new HashMap<>();
@@ -180,6 +187,7 @@ public class AddApartment extends Fragment {
         apartment.put("residents", residents);
         apartment.put("zipCode", zipCode);
         apartment.put("tenantName", tenantName);
+        apartment.put("createdAt", timestamp);
 
         // Add a new document with a generated ID
         db.collection("apartments")
