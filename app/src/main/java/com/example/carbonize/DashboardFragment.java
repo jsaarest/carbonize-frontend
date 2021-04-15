@@ -1,9 +1,11 @@
 package com.example.carbonize;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -33,6 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A fragment representing a list of Apartment Items.
  */
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class DashboardFragment extends Fragment implements Dialog.DialogListener {
 
     Button addNewButton;
@@ -45,17 +48,16 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     public static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
 
-    boolean everythingLoaded = false;
-    int totalRevenue =0;
-    int totalCarbon =0;
+    //public variables for other fragments
+    public static int totalRevenue =0;
+    public static int totalCarbon =0;
 
+
+    //image numbers for apartment related picsum photo ids
     List<Integer> imageSeed = new ArrayList<>(List.of(1029,1031,1040,1048,1054,1065,1076,1078,142,164,188,193,214,221,234,238,259,263,274,283,288,290,299,308,322,369,
             391,398,297,405,410,411,437,448,514,552,57,58,594,622));
 
-
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
 
@@ -70,7 +72,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     public DashboardFragment() {
     }
 
-    // TODO: Customize parameter initialization
+
     @SuppressWarnings("unused")
     public static DashboardFragment newInstance(int columnCount) {
         DashboardFragment fragment = new DashboardFragment();
@@ -96,8 +98,9 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         apartmentsToList = getFireBaseData();
         addNewButton = view.findViewById(R.id.addNewLocation);
         profileButton = view.findViewById(R.id.profile_image);
-        this.totalCo2 = view.findViewById(R.id.txtTotalCo2);
-        this.totalEur = view.findViewById(R.id.txtTotalRent);
+        totalCo2 = view.findViewById(R.id.txtTotalCo2);
+        totalEur = view.findViewById(R.id.txtTotalRent);
+
 
         this.apartments = view.findViewById(R.id.rclLocationList);
 
@@ -106,6 +109,12 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
         this.apartments.setAdapter(adapter);
 
+        /*
+        Add onClickListeners to all clickable UI-items:
+        - UserProfile image
+        - Add new listing button
+        - Total Co2 -label
+         */
         addNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,13 +144,13 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     }
 
     public void printMessage(){
-        System.out.println("Kissat ovat koiria");
+        System.out.println("Message printed");
     }
 
-    /*
+    private ArrayList<Apartment> initApartments(ArrayList<Apartment> allApartments)
+     /*
     Add list of apartments to Recylerview
      */
-    private ArrayList<Apartment> initApartments(ArrayList<Apartment> allApartments)
     {
         apartmentsFromFireStore.clear();
         adapter.notifyDataSetChanged();
@@ -156,8 +165,12 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
 
     /*
         Read apartment data from Firebase Firestore
-         */
+    */
     private ArrayList<Apartment> getFireBaseData()
+    /*
+    Read Firebase database for apartment information
+    returns ArrayList<Apartment> of all apartments in firestore
+     */
     {
 
         db.getInstance()
@@ -178,8 +191,14 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         return apartmentsFromFireStore;
     }
 
-    private ArrayList<Apartment> parseInfo(List<DocumentSnapshot> inputJson)  {
 
+    private ArrayList<Apartment> parseInfo(List<DocumentSnapshot> inputJson){
+    /*
+    Parse apartment data ready to be added to the Recyclerview
+    Method returns user's every apartment in an ArrayList<Apartment>
+     */
+        totalCarbon=0;
+        totalRevenue=0;
         ArrayList<Apartment> apartmentsFromFirebase = new ArrayList<>();
         for (int i=0;i<inputJson.size();i++) {
             Apartment aptFromFireStore= new Apartment("","","","","","","",0,0,0, 0);
@@ -199,33 +218,29 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             aptFromFireStore.setZipCode(inputJson.get(i).getString("zipCode"));
             aptFromFireStore.setArea(inputJson.get(i).getDouble("area"));
             aptFromFireStore.setRent(inputJson.get(i).getDouble("rent"));
+
+            //add rent euros to total revenue amount to be added to UI
             totalRevenue +=inputJson.get(i).getDouble("rent");
 
-            aptFromFireStore.setCo2Amount(inputJson.get(i).getDouble("co2Amount"));
+            aptFromFireStore.setCo2Amount(doubleRound(inputJson.get(i).getDouble("co2Amount"),1));
+
+            //add co2e to total carbon amount to be added to UI
             totalCarbon += inputJson.get(i).getDouble("co2Amount");
             aptFromFireStore.setResidents((int)Math.round(inputJson.get(i).getDouble("residents")));
             apartmentsFromFirebase.add(aptFromFireStore);
 
-           /*
-            System.out.println("DEBUG: " + inputJson.get(i).getString("address"));
-            System.out.println("DEBUG: " + inputJson.get(i).getString("apartmentImageurl"));
-            System.out.println("DEBUG: " + inputJson.get(i).getString("zipCode"));
-            System.out.println("DEBUG: " + inputJson.get(i).getDouble("area"));
-            System.out.println("DEBUG: " + inputJson.get(i).getDouble("rent"));
-            System.out.println("DEBUG: " + inputJson.get(i).getDouble("residents"));
-
-            */
         }
-
-        System.out.println("DEBUG: total co2 " +totalCarbon);
-        System.out.println("DEBUG: total eur " +totalRevenue);
-        //totalEur.setText(String.valueOf(totalRevenue));
 
         initApartments(apartmentsFromFirebase);
         return apartmentsFromFirebase;
     }
 
+
     public ArrayList<Apartment> getApartments() {
+        /*
+        Helper method that returns ArrayList<Apartment> that holds current apartments in Firestore
+        used for instance to pass Arraylist to BarChart creation
+         */
         return apartmentsFromFireStore;
     }
 
@@ -236,5 +251,13 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         int randomImageIndex = r.nextInt(imageSeed.size());
         String randomImageUrlString = imageSeed.get(randomImageIndex).toString();
         return randomImageUrlString;
+    }
+    private static double doubleRound (double value, int precision) {
+        /*
+        tool method to round a double to wanted precision
+        returns rounded double
+         */
+        int scale = (int)Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 }

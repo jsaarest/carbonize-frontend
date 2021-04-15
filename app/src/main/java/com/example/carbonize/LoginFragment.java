@@ -1,5 +1,7 @@
 package com.example.carbonize;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -60,7 +62,16 @@ public class LoginFragment extends Fragment {
                         } else {
 
                             System.out.println("ERROR: Login not successful");
-                            //TODO Handle errors with failed login
+                            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                            alertDialog.setTitle("Login failed");
+                            alertDialog.setMessage("Incorrect username or password.");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
                         }
                     }
                 });

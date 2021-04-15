@@ -39,8 +39,10 @@ public class MyDashboardRecyclerViewAdapter extends RecyclerView.Adapter<MyDashb
         Apartment apartment = apartments.get(position);
         holder.apartmentAddress.setText(apartment.getAddress());
         holder.apartmentOwner.setText(apartment.getTenantName());
-        holder.apartmentRent.setText(apartment.getRent() + " €");
-        holder.apartmentCo2.setText(String.valueOf(apartment.getCo2Amount()) + " Co2e");
+
+        holder.apartmentRent.setText(String.valueOf(apartment.getRent()).replace(".", ","));
+        holder.apartmentCo2.setText(String.valueOf(apartment.getCo2Amount()).replace(".", ","));
+
         Picasso.get().load(apartment.getApartmentImageUrl()).into(holder.dashImageView);
 
     }
