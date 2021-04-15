@@ -36,10 +36,10 @@ public class EnterFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         //Error handling to prevent null object exception with Android Studio 4.1.3
         try{
-            String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         } catch (Exception e) {
             e.printStackTrace();
-            String currentUser = "";
+            currentUser = "";
         }
 
         // Inflate the layout for this fragment
