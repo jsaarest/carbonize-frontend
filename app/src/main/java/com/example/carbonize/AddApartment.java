@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,8 +37,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -46,7 +50,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class AddApartment extends Fragment {
 
     EditText addressEditText, zipCodeEditText, cityEditText, residentsEditText, monthlyRentEditText, areaEditText, tenantNameEditText;
-
+    Spinner tenantSpinner;
     String address, city, tenantName, zipCode;
     Double area, monthlyRent;
     Integer residents;
@@ -56,6 +60,7 @@ public class AddApartment extends Fragment {
     Button backToDashboardButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    List<String> tenantsToShow = new ArrayList<>();
 
     public AddApartment(){}
 
@@ -85,6 +90,8 @@ public class AddApartment extends Fragment {
         cityEditText = v.findViewById(R.id.city);
         zipCodeEditText = v.findViewById(R.id.zipCode);
         tenantNameEditText = v.findViewById(R.id.tenantNameField);
+        tenantSpinner = v.findViewById(R.id.tenantSpinner);
+
 
         button.setOnClickListener(v1 -> {
             try {
@@ -97,6 +104,17 @@ public class AddApartment extends Fragment {
         });
         backToDashboardButton.setOnClickListener(v1 -> Navigation.findNavController(v).navigate(R.id.action_addApartment_to_dashboardFragment));
 
+        //add contents of customerList to spinner
+        ArrayAdapter<String> tenantAdapter = new ArrayAdapter<String>(
+                getContext(), android.R.layout.simple_spinner_item, tenantsToShow);
+
+
+       CustomerList customersToAdd = new CustomerList();
+       for (int i=0; i<customersToAdd.customerList.size();i++) {
+           tenantsToShow.add(customersToAdd.customerList.get(i).getTenantName());
+
+       }
+        tenantSpinner.setAdapter(tenantAdapter);
 
         return v;
     }
