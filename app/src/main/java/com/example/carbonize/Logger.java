@@ -9,14 +9,18 @@ import java.io.OutputStreamWriter;
 public class Logger {
     private static Context context;
 
-    private static final Logger instance = new Logger(context);
+    //Singleton design pattern
+    private static final Logger instance = new Logger();
 
-    public Logger(Context con) {
-        context = con;
+    private Logger() {
     }
 
     public static Logger getInstance() {
         return instance;
+}
+
+public void setContext(Context context) {
+        this.context = context;
 }
 
 

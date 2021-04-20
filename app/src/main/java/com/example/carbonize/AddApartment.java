@@ -1,8 +1,10 @@
 package com.example.carbonize;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -116,6 +118,7 @@ public class AddApartment extends Fragment {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url + api,
                 new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.R)
                     @Override
                     public void onResponse(String response) {
                         System.out.println(response);
@@ -158,6 +161,7 @@ public class AddApartment extends Fragment {
         float carbon = calculateResults();
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.R)
     private void databaseHandler(float carbonAmount)
     {
         //System.out.println("DEBUG: carbonAmount: " + carbonAmount);
@@ -174,14 +178,14 @@ public class AddApartment extends Fragment {
         Date date = new Date();
         Long timestamp = date.getTime();
 
-        float co2Amount = 0;
+        double formattedCarbonAmount = DashboardFragment.doubleRound(carbonAmount, 1);
         // Create a new apartment with data
         Map<String, Object> apartment = new HashMap<>();
         apartment.put("address", address);
         apartment.put("apartmentImageUrl", "https://source.unsplash.com/random");
         apartment.put("area", area);
         apartment.put("city", city);
-        apartment.put("co2Amount", carbonAmount);
+        apartment.put("co2Amount", formattedCarbonAmount);
         apartment.put("owner", currentUser);
         apartment.put("rent", monthlyRent);
         apartment.put("residents", residents);
@@ -197,7 +201,7 @@ public class AddApartment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("ADDED", "New apartment added with ID: " + documentReference.getId());
                         //Add the apartment data to a .csv file
-                        Logger.getInstance().logApartment(address, city, zipCode, residents, tenantName, area, monthlyRent, co2Amount);
+                        Logger.getInstance().logApartment(address, city, zipCode, residents, tenantName, area, monthlyRent, formattedCarbonAmount);
                         Navigation.findNavController(getView()).navigate(R.id.action_addApartment_to_dashboardFragment);
 
                     }

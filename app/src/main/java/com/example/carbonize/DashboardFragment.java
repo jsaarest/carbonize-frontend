@@ -49,11 +49,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CarbonAndRevenueCalculator calculator = CarbonAndRevenueCalculator.getInstance();
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
-
-    //public variables for other fragments
-    private double totalRevenue =0;
-    private double totalCarbon =0;
+    private static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
 
 
     //image numbers for apartment related picsum photo ids
@@ -188,7 +184,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
                             apartmentsFromFireStore = parseInfo(myListOfDocuments);
                             //System.out.println("DEBUG: IN apartmentsFromFireBase size: " + apartmentsFromFireStore.size());
                             adapter.notifyDataSetChanged();
-                            getTotalAmounts();
+                            //After the apartments have been successfully fetched, calculator class can use the arraylist to calculate total revenue and Co2 amounts.
+                            getTotalRevenueAndCo2();
                         }
                     }
                 });
@@ -243,7 +240,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     }
 
 
-    private static double doubleRound (double value, int precision) {
+    public static double doubleRound (double value, int precision) {
         /*
         tool method to round a double to wanted precision
         returns rounded double
@@ -252,12 +249,11 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         return (double) Math.round(value * scale) / scale;
     }
 
-    private void getTotalAmounts() {
-        calculator.calculateTotals();
-        totalRevenue = CarbonAndRevenueCalculator.totalRevenue;
-        totalCarbon = CarbonAndRevenueCalculator.totalCo2;
-        String formattedRevenue = String.format("%.1f €", totalRevenue);
-        String formattedCo2 = String.format("%.1f", totalCarbon).replace(".", ",") + " kg CO2e";
+    //Gets the total revenue and Co2 amounts from CarbonAndRevenueCalculator class, formats them to desired format, and updates the texts in the interface.
+    private void getTotalRevenueAndCo2() {
+        calculator.calculateTotalRevenueAndCo2();
+        String formattedRevenue = String.format("%.1f €", CarbonAndRevenueCalculator.totalRevenue);
+        String formattedCo2 = String.format("%.1f", CarbonAndRevenueCalculator.totalCo2).replace(".", ",") + " kg CO2e";
         totalCo2.setText(formattedCo2);
         totalEur.setText(formattedRevenue);
     }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.R)
 public class CarbonAndRevenueCalculator {
-    //Singleton pattern
+    //Singleton design pattern
     private static final CarbonAndRevenueCalculator instance = new CarbonAndRevenueCalculator();
 
     private CarbonAndRevenueCalculator() {
@@ -23,7 +23,8 @@ public class CarbonAndRevenueCalculator {
     DashboardFragment dashboard = new DashboardFragment();
     private static ArrayList<Apartment> apartments = new ArrayList<Apartment>();
 
-    public void calculateTotals() {
+    //Calculates the total revenue and Co2 amounts from the apartment list and updates the class variables with new values.
+    public void calculateTotalRevenueAndCo2() {
         totalRevenue = 0;
         totalCo2 = 0;
         apartments = dashboard.getApartments();
