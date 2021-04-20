@@ -56,7 +56,6 @@ public class AddApartment extends Fragment {
     String address, city, tenantName, zipCode;
     Double area, monthlyRent;
     Integer residents;
-    Integer timestamp;
 
     Button button;
     Button backToDashboardButton;
@@ -139,7 +138,7 @@ public class AddApartment extends Fragment {
                     @RequiresApi(api = Build.VERSION_CODES.R)
                     @Override
                     public void onResponse(String response) {
-                        System.out.println(response);
+                        //First (and only) result is the desired co2e amount
                         result[0] = Float.parseFloat(response);
                         databaseHandler(result[0]);
                     }
@@ -177,12 +176,12 @@ public class AddApartment extends Fragment {
             return;
         }
         float carbon = calculateResults();
+        System.out.println(carbon);
 
     }
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void databaseHandler(float carbonAmount)
     {
-        //System.out.println("DEBUG: carbonAmount: " + carbonAmount);
 
         address = addressEditText.getText().toString();
         residents = Integer.parseInt(String.valueOf(residentsEditText.getText()));
@@ -192,7 +191,7 @@ public class AddApartment extends Fragment {
         zipCode = zipCodeEditText.getText().toString();
         tenantName = tenantNameEditText.getText().toString();
 
-        // Create a timestamp, so we can sort the list in dashboard later
+        // Create a timestamp, so we can sort the list in dashboard later if needed
         Date date = new Date();
         Long timestamp = date.getTime();
 
@@ -221,17 +220,13 @@ public class AddApartment extends Fragment {
                         //Add the apartment data to a .csv file
                         Logger.getInstance().logApartment(address, city, zipCode, residents, tenantName, area, monthlyRent, formattedCarbonAmount);
                         Navigation.findNavController(getView()).navigate(R.id.action_addApartment_to_dashboardFragment);
-
                     }
-
-
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("ERR", "Error adding document", e);
                     }
-
                 });
     }
 

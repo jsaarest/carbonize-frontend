@@ -28,6 +28,11 @@ public class CustomerList {
         customerList.add(new Customer("Dahlia Dufva", 4));
         customerList.add(new Customer("Esko Eerikäinen", 5));
         customerList.add(new Customer("Filip Fariselainen", 6));
+        customerList.add(new Customer("Teuvo Teurastaja", 7));
+        customerList.add(new Customer("Seppo Sepittäjä", 8));
+        customerList.add(new Customer("Jaakko Jaakkola", 9));
+        customerList.add(new Customer("Matti Meikäläinen", 10));
+
 
 
     }

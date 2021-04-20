@@ -150,8 +150,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         adapter.notifyDataSetChanged();
         for (int i=0;i<allApartments.size();i++)
         {
+            //add each apartment on the list
             apartmentsFromFireStore.add(allApartments.get(i));
-
         }
         adapter.notifyDataSetChanged();
         return apartmentsFromFireStore;
