@@ -29,8 +29,9 @@ public class ChartFragment extends Fragment {
     private FragmentChartBinding binding;
     private BarChart chart;
     DashboardFragment dashboard = new DashboardFragment();
-    private double totalRevenue = dashboard.totalRevenue;
-    private double totalCo2 = dashboard.totalCarbon;
+    CarbonAndRevenueCalculator calculator = CarbonAndRevenueCalculator.getInstance();
+    private double totalRevenue;
+    private double totalCo2;
     private static ArrayList<Apartment> apartments = new ArrayList<Apartment>();
 
     @Override
@@ -127,8 +128,8 @@ public class ChartFragment extends Fragment {
         }
 
         //Set total value texts
-        String formattedRevenue = String.format("%.0f€", totalRevenue);
-        String formattedCo2 = String.format("%.0f Kg CO2e", totalCo2);
+        String formattedRevenue = String.format("%.0f€", CarbonAndRevenueCalculator.totalRevenue);
+        String formattedCo2 = String.format("%.0f Kg CO2e", CarbonAndRevenueCalculator.totalCo2);
         binding.totalRevenueText.setText("Total monthly revenue: " + formattedRevenue);
         binding.totalCo2Text.setText("Total monthly emissions: " + formattedCo2);
 
