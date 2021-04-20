@@ -47,12 +47,9 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     RecyclerView apartments;
     RecyclerView.Adapter adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CarbonAndRevenueCalculator calculator = CarbonAndRevenueCalculator.getInstance();
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    public static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
-
-    //public variables for other fragments
-    public static double totalRevenue =0;
-    public static double totalCarbon =0;
+    private static ArrayList<Apartment> apartmentsFromFireStore = new ArrayList<Apartment>();
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -182,6 +179,8 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
                             apartmentsFromFireStore = parseInfo(myListOfDocuments);
                             //System.out.println("DEBUG: IN apartmentsFromFireBase size: " + apartmentsFromFireStore.size());
                             adapter.notifyDataSetChanged();
+                            //After the apartments have been successfully fetched, calculator class can use the arraylist to calculate total revenue and Co2 amounts.
+                            getTotalRevenueAndCo2();
                         }
                     }
                 });
@@ -194,8 +193,6 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     Parse apartment data ready to be added to the Recyclerview
     Method returns user's every apartment in an ArrayList<Apartment>
      */
-        totalCarbon=0;
-        totalRevenue=0;
         ArrayList<Apartment> apartmentsFromFirebase = new ArrayList<>();
         for (int i=0;i<inputJson.size();i++) {
             Apartment aptFromFireStore= new Apartment("","","","","","","",0,0,0, 0, 0);
@@ -216,15 +213,9 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             aptFromFireStore.setArea(inputJson.get(i).getDouble("area"));
             aptFromFireStore.setRent(inputJson.get(i).getDouble("rent"));
 
-            //add rent euros to total revenue amount to be added to UI
-            totalRevenue += doubleRound(inputJson.get(i).getDouble("rent"),1);
-            totalEur.setText(String.valueOf(totalRevenue) + " €");
 
             aptFromFireStore.setCo2Amount(doubleRound(inputJson.get(i).getDouble("co2Amount"),1));
 
-            //add co2e to total carbon amount to be added to UI
-            totalCarbon += doubleRound(inputJson.get(i).getDouble("co2Amount"),1);
-            totalCo2.setText(String.valueOf(totalCarbon) + " kg CO2e");
             aptFromFireStore.setResidents((int)Math.round(inputJson.get(i).getDouble("residents")));
             apartmentsFromFirebase.add(aptFromFireStore);
 
@@ -244,12 +235,21 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     }
 
 
-    private static double doubleRound (double value, int precision) {
+    public static double doubleRound (double value, int precision) {
         /*
         tool method to round a double to wanted precision
         returns rounded double
          */
         int scale = (int)Math.pow(10, precision);
         return (double) Math.round(value * scale) / scale;
+    }
+
+    //Gets the total revenue and Co2 amounts from CarbonAndRevenueCalculator class, formats them to desired format, and updates the texts in the interface.
+    private void getTotalRevenueAndCo2() {
+        calculator.calculateTotalRevenueAndCo2();
+        String formattedRevenue = String.format("%.1f €", CarbonAndRevenueCalculator.totalRevenue);
+        String formattedCo2 = String.format("%.1f", CarbonAndRevenueCalculator.totalCo2).replace(".", ",") + " kg CO2e";
+        totalCo2.setText(formattedCo2);
+        totalEur.setText(formattedRevenue);
     }
 }
