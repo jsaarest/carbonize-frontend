@@ -26,7 +26,10 @@ public class ImageRandomizer {
     }
 
     private String randomApartmentImageUrl ()
-    // Method to return random image number of a building in Picsum.photos
+    /*
+     Method to return random image number of a building in Picsum.photos
+     to be used as part of the picsum -url
+     */
     {
         Random r = new Random();
         int randomImageIndex = r.nextInt(imageSeedApartment.size());
