@@ -189,7 +189,7 @@ public class AddApartment extends Fragment {
         monthlyRent = Double.parseDouble(String.valueOf(monthlyRentEditText.getText()));
         city = cityEditText.getText().toString();
         zipCode = zipCodeEditText.getText().toString();
-        tenantName = tenantNameEditText.getText().toString();
+        tenantName = tenantSpinner.getSelectedItem().toString();
 
         // Create a timestamp, so we can sort the list in dashboard later if needed
         Date date = new Date();
