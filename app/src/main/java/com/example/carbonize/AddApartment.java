@@ -194,8 +194,8 @@ public class AddApartment extends Fragment {
         // Create a timestamp, so we can sort the list in dashboard later if needed
         Date date = new Date();
         Long timestamp = date.getTime();
-
         double formattedCarbonAmount = DashboardFragment.doubleRound(carbonAmount, 1);
+
         // Create a new apartment with data
         Map<String, Object> apartment = new HashMap<>();
         apartment.put("address", address);
