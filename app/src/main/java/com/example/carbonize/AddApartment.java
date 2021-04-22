@@ -50,7 +50,6 @@ public class AddApartment extends Fragment {
     String address, city, tenantName, zipCode;
     Double area, monthlyRent;
     Integer residents;
-    Integer timestamp;
 
     Button button;
     Button backToDashboardButton;

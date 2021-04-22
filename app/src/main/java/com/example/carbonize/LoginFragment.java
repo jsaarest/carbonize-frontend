@@ -24,7 +24,7 @@ public class LoginFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     EditText mEmail, mPassword;
-    Button mLoginButton;
+    Button mLoginButton, mResetPassword;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,9 +34,18 @@ public class LoginFragment extends Fragment {
         mEmail = v.findViewById(R.id.loginEmail);
         mPassword = v.findViewById(R.id.loginPassword);
         mLoginButton = v.findViewById(R.id.loginWithEmail);
+        mResetPassword = v.findViewById(R.id.goToResetPassword);
+
+        // Users can also reset their password
+        mResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_passwordResetFragment);
+            }
+        });
 
         // Add some logic to login button
-
+        // Calls Firebase authentication to sign in
         mLoginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
