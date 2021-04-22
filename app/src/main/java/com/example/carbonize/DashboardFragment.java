@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -119,11 +121,22 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
                 // When item is swiped, remove item from arrayList and db
                 apartmentsFromFireStore.sort(new CreatedAtSorter()); // Sort the apartments by createdAt timestamp
                 Apartment deletedApartment = apartmentsFromFireStore.get(viewHolder.getAdapterPosition());
-                apartmentsFromFireStore.remove(viewHolder.getAdapterPosition());
 
-                Log.d("DEL", "Deleted item name: " + deletedApartment.getApartmentId() + "Address:  " +deletedApartment.getAddress());
-                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-                db.collection("apartments").document(deletedApartment.getApartmentId()).delete();
+                db.collection("apartments").document(deletedApartment.getApartmentId()).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        apartmentsFromFireStore.remove(viewHolder.getAdapterPosition());
+                        adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("ERR", "Error deleting document", e);
+                    }
+                });
             }
         }).attachToRecyclerView(apartments);
 
