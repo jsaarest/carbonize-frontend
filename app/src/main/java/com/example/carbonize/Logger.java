@@ -3,6 +3,7 @@ package com.example.carbonize;
 import android.content.Context;
 import com.google.firebase.auth.FirebaseAuth;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
@@ -42,7 +43,7 @@ public void setContext(Context context) {
         }
     }
 
-    //If the file does not exists yet, initializes it with header information
+    //If the file does not exist yet, initializes it with header information
     private void initializeFile() {
         try {
             String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -53,8 +54,10 @@ public void setContext(Context context) {
             ows.write(userHeader);
             ows.write(dataHeader);
             ows.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File to initialize was not found");
+            e.printStackTrace();
         } catch (IOException e) {
-            // TODO Handle writing error
             System.out.println("Initializing file failed");
             e.printStackTrace();
         }
@@ -69,8 +72,10 @@ public void setContext(Context context) {
             String newApartment = address + ";" + city + ";" + zipCode + ";" + residents + ";" + tenantName + ";" + area + ";" + rent + ";" + co2 + "\n";
             ows.append(newApartment);
             ows.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File to write was not found");
+            e.printStackTrace();
         } catch (IOException e) {
-            //TODO Handle writing error
             System.out.println("Writing to file failed");
             e.printStackTrace();
         }
