@@ -1,9 +1,11 @@
 package com.example.carbonize;
 
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -17,12 +19,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private FirebaseAuth mAuth;
-    DashboardFragment dashboard = new DashboardFragment();
-    private double revenue = dashboard.totalRevenue;
-    private double co2 = dashboard.totalCarbon;
+    CarbonAndRevenueCalculator calculator = CarbonAndRevenueCalculator.getInstance();
+    private double revenue;
+    private double co2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,10 +69,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        String formattedRevenue = String.format("%.0f €", revenue);
-        String formattedCo2 = String.format("%.0f", co2).replace(".", ",");
-        binding.revenueAmount.setText(formattedRevenue);
-        binding.co2Amount.setText(formattedCo2 + " Kg CO2e");
+        getTotalRevenueAndCo2();
         return view;
     }
 
@@ -78,5 +78,16 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    //Gets the total revenue and Co2 amounts from CarbonAndRevenueCalculator class, formats them to desired format, and updates the texts in the interface.
+    private void getTotalRevenueAndCo2() {
+        calculator.calculateTotalRevenueAndCo2();
+        revenue = CarbonAndRevenueCalculator.totalRevenue;
+        co2 = CarbonAndRevenueCalculator.totalCo2;
+        String formattedRevenue = String.format("%.1f €", revenue);
+        String formattedCo2 = String.format("%.1f", co2).replace(".", ",");
+        binding.revenueAmount.setText(formattedRevenue);
+        binding.co2Amount.setText(formattedCo2 + " kg CO2e");
     }
 }

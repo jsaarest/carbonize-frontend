@@ -7,16 +7,20 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 public class Logger {
-        private static Context context;
+    private static Context context;
 
-    private static final Logger instance = new Logger(context);
+    //Singleton design pattern
+    private static final Logger instance = new Logger();
 
-    public Logger(Context con) {
-        context = con;
+    private Logger() {
     }
 
     public static Logger getInstance() {
         return instance;
+}
+
+public void setContext(Context context) {
+        this.context = context;
 }
 
 
@@ -39,7 +43,7 @@ public class Logger {
     }
 
     //If the file does not exists yet, initializes it with header information
-    public void initializeFile() {
+    private void initializeFile() {
         try {
             String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
             String fileName = "Userdata of " + user + ".csv";
@@ -57,7 +61,7 @@ public class Logger {
     }
 
     //Writes the added apartment information to the .csv file
-    public void writeFile(String address, String city, String zipCode, int residents, String tenantName, double area, double rent, double co2) {
+    private void writeFile(String address, String city, String zipCode, int residents, String tenantName, double area, double rent, double co2) {
         try {
             String user = FirebaseAuth.getInstance().getCurrentUser().getEmail();
             String fileName = "Userdata of " + user + ".csv";

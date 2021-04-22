@@ -2,7 +2,10 @@ package com.example.carbonize;
 
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
@@ -21,12 +24,11 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 
 
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class ChartFragment extends Fragment {
     private FragmentChartBinding binding;
     private BarChart chart;
     DashboardFragment dashboard = new DashboardFragment();
-    private double totalRevenue = dashboard.totalRevenue;
-    private double totalCo2 = dashboard.totalCarbon;
     private static ArrayList<Apartment> apartments = new ArrayList<Apartment>();
 
     @Override
@@ -43,7 +45,7 @@ public class ChartFragment extends Fragment {
         chart = binding.chart;
 
         //Initializing apartments list with data fetched in dashboard
-        apartments = dashboard.apartmentsFromFireStore;
+        apartments = dashboard.getApartments();
 
         //Styling and creating the barchart
         styleChart();
@@ -122,15 +124,15 @@ public class ChartFragment extends Fragment {
             }
         }
 
-        //Set total value texts
-        String formattedRevenue = String.format("%.0f€", totalRevenue);
-        String formattedCo2 = String.format("%.0f Kg CO2e", totalCo2);
+        //Set total value texts, as chart is accessed from profile fragment, the total values have been already calculated every time profile fragment is opened.
+        String formattedRevenue = String.format("%.0f€", CarbonAndRevenueCalculator.totalRevenue);
+        String formattedCo2 = String.format("%.0f Kg CO2e", CarbonAndRevenueCalculator.totalCo2);
         binding.totalRevenueText.setText("Total monthly revenue: " + formattedRevenue);
         binding.totalCo2Text.setText("Total monthly emissions: " + formattedCo2);
 
         //Initialize bar chart
         BarDataSet revenue = new BarDataSet(rentEntries, "Monthly revenue [€]");
-        BarDataSet co2 = new BarDataSet(co2Entries, "Monthly emissions [Kg CO2e]");
+        BarDataSet co2 = new BarDataSet(co2Entries, "Monthly emissions [kg CO2e]");
         revenue.setColor(Color.BLUE);
         co2.setColor(Color.GREEN);
         revenue.setValueTextSize(15f);
