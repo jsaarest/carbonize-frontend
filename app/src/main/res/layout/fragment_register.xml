@@ -31,15 +31,15 @@
         android:id="@+id/contentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="32dp"
         android:text="Register"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#232B37"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/mFullname"
@@ -60,7 +60,7 @@
         android:id="@+id/mPassword"
         android:layout_width="345dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="196dp"
+        android:layout_marginBottom="252dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/registerWithEmail"
