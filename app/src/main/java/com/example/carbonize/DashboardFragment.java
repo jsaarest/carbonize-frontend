@@ -117,17 +117,13 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 // When item is swiped, remove item from arrayList and db
-                //apartmentsFromFireStore.remove(viewHolder.getAdapterPosition());
                 apartmentsFromFireStore.sort(new CreatedAtSorter()); // Sort the apartments by createdAt timestamp
                 Apartment deletedApartment = apartmentsFromFireStore.get(viewHolder.getAdapterPosition());
-                //int position = viewHolder.getAdapterPosition();
-                //Apartment obj = apartmentsFromFireStore.get(id);
-                //apartmentsFromFireStore.remove(deletedApartment);
+                apartmentsFromFireStore.remove(viewHolder.getAdapterPosition());
 
                 Log.d("DEL", "Deleted item name: " + deletedApartment.getApartmentId() + "Address:  " +deletedApartment.getAddress());
-                //db.collection("apartments").document(deletedApartment.getApartmentId()).delete();
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-                adapter.notifyDataSetChanged();
+                db.collection("apartments").document(deletedApartment.getApartmentId()).delete();
             }
         }).attachToRecyclerView(apartments);
 
