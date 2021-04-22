@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.core.OrderBy;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -109,6 +111,13 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
         this.apartments.setAdapter(adapter);
 
+        if (FirebaseAuth.getInstance().getCurrentUser().getEmail()!=null)
+        {
+            String pseudoRndProfileImage = new ImageRandomizer().getRandomProfileImage(FirebaseAuth.getInstance().getCurrentUser().getEmail().toString());
+            Picasso.get().load("https://picsum.photos/id/"+ pseudoRndProfileImage + "/300/300").noFade().fit().into(profileButton);
+            System.out.println("DEBUG: "+pseudoRndProfileImage);
+        }
+
         // Swipe handler for deleting objects
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
@@ -126,9 +135,10 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        apartmentsFromFireStore.remove(viewHolder.getAdapterPosition());
+                        apartmentsToList.remove(viewHolder.getAdapterPosition());
                         adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                         adapter.notifyDataSetChanged();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -139,6 +149,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
                 });
             }
         }).attachToRecyclerView(apartments);
+
 
 
         /*

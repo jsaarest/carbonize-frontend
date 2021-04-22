@@ -96,7 +96,7 @@ public class AddApartment extends Fragment {
 
         button.setOnClickListener(v1 -> {
             try {
-                addApartmentToDatabase(v);
+                checkInputIntegrity(v);
             } catch (IOException | ParserConfigurationException e) {
                 e.printStackTrace();
             } catch (SAXException e) {
@@ -120,7 +120,10 @@ public class AddApartment extends Fragment {
         return v;
     }
 
-    private float calculateCo2() throws ParserConfigurationException, IOException, SAXException {
+
+    private float callCo2Api() throws ParserConfigurationException, IOException, SAXException {
+
+
         // Calls API and returns the CO2 amount of the apartment based on inputs
         double cArea = Double.parseDouble(String.valueOf(areaEditText.getText()));
         int cResidents = Integer.parseInt(String.valueOf(residentsEditText.getText()));
@@ -140,7 +143,7 @@ public class AddApartment extends Fragment {
                     public void onResponse(String response) {
                         //First (and only) result is the desired co2e amount
                         result[0] = Float.parseFloat(response);
-                        databaseHandler(result[0]);
+                        addToDatabase(result[0]);
                     }
 
                 }, new Response.ErrorListener() {
@@ -160,7 +163,7 @@ public class AddApartment extends Fragment {
         return text.getText().toString().trim();
     }
 
-    private void addApartmentToDatabase(View view) throws IOException, SAXException, ParserConfigurationException {
+    private void checkInputIntegrity(View view) throws IOException, SAXException, ParserConfigurationException {
 
         // Make some checking if there is data inserted
         if(TextUtils.isEmpty(getTextAndTrim(addressEditText))){
@@ -175,12 +178,14 @@ public class AddApartment extends Fragment {
             areaEditText.setError("Please, insert the area");
             return;
         }
-        float carbon = calculateCo2();
+
+        float carbon = callCo2Api();
+
         System.out.println(carbon);
 
     }
     @RequiresApi(api = Build.VERSION_CODES.R)
-    private void databaseHandler(float carbonAmount)
+    private void addToDatabase(float carbonAmount)
     {
 
         address = addressEditText.getText().toString();
@@ -194,8 +199,8 @@ public class AddApartment extends Fragment {
         // Create a timestamp, so we can sort the list in dashboard later if needed
         Date date = new Date();
         Long timestamp = date.getTime();
-
         double formattedCarbonAmount = DashboardFragment.doubleRound(carbonAmount, 1);
+
         // Create a new apartment with data
         Map<String, Object> apartment = new HashMap<>();
         apartment.put("address", address);
