@@ -1,4 +1,4 @@
-package com.example.carbonize;
+package com.example.carbonize.UI;
 
 
 import android.graphics.Color;
@@ -11,6 +11,10 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.carbonize.Apartment;
+import com.example.carbonize.CarbonAndRevenueCalculator;
+import com.example.carbonize.R;
 import com.example.carbonize.databinding.FragmentChartBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;

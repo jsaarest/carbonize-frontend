@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.carbonize.UI.DashboardFragment;
+
 import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.R)

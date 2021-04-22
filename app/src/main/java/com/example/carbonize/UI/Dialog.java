@@ -1,4 +1,4 @@
-package com.example.carbonize;
+package com.example.carbonize.UI;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.example.carbonize.R;
 
 import java.io.IOException;
 import java.util.Objects;

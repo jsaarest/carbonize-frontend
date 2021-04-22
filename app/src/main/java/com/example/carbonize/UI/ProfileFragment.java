@@ -1,4 +1,4 @@
-package com.example.carbonize;
+package com.example.carbonize.UI;
 
 
 import android.os.Build;
@@ -13,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.carbonize.CarbonAndRevenueCalculator;
+import com.example.carbonize.ImageRandomizer;
+import com.example.carbonize.R;
 import com.example.carbonize.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
