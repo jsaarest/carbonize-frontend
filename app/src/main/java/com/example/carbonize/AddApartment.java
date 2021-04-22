@@ -156,11 +156,11 @@ public class AddApartment extends Fragment {
         return result[0];
     };
 
-    private String getTextAndTrim(EditText s){
-        return s.getText().toString().trim();
+    private String getTextAndTrim(EditText text){
+        return text.getText().toString().trim();
     }
 
-    private void addApartmentToDatabase(View v) throws IOException, SAXException, ParserConfigurationException {
+    private void addApartmentToDatabase(View view) throws IOException, SAXException, ParserConfigurationException {
 
         // Make some checking if there is data inserted
         if(TextUtils.isEmpty(getTextAndTrim(addressEditText))){
