@@ -111,6 +111,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
         this.apartments.setAdapter(adapter);
 
+        //Check if user has an email and call a pseudorandom image for their profile image
         if (FirebaseAuth.getInstance().getCurrentUser().getEmail()!=null)
         {
             String pseudoRndProfileImage = new ImageRandomizer().getRandomProfileImage(FirebaseAuth.getInstance().getCurrentUser().getEmail().toString());
