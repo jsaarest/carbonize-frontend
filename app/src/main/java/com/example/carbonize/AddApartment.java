@@ -61,7 +61,7 @@ public class AddApartment extends Fragment {
     Button backToDashboardButton;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    List<String> tenantsToShow = new ArrayList<>();
+    ArrayList<String> tenantsToShow = new ArrayList<>();
 
     public AddApartment(){}
 
@@ -120,7 +120,10 @@ public class AddApartment extends Fragment {
         return v;
     }
 
+
     private float callCo2Api() throws ParserConfigurationException, IOException, SAXException {
+
+
         // Calls API and returns the CO2 amount of the apartment based on inputs
         double cArea = Double.parseDouble(String.valueOf(areaEditText.getText()));
         int cResidents = Integer.parseInt(String.valueOf(residentsEditText.getText()));
@@ -175,7 +178,9 @@ public class AddApartment extends Fragment {
             areaEditText.setError("Please, insert the area");
             return;
         }
+
         float carbon = callCo2Api();
+
         System.out.println(carbon);
 
     }
