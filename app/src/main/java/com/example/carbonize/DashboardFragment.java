@@ -136,10 +136,14 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+
                         apartmentsToList.remove(viewHolder.getAdapterPosition());
+                        //also remove from list that is base for calculations
+                        apartmentsFromFireStore.remove(viewHolder.getAdapterPosition());
                         adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                         adapter.notifyDataSetChanged();
-
+                        //update co2 and revenue after deletion
+                        getTotalRevenueAndCo2();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
