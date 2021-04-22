@@ -9,9 +9,11 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import com.google.firebase.firestore.core.OrderBy;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -83,6 +86,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
     }
 
     @Override
@@ -102,6 +106,31 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         this.apartments.setLayoutManager(apartmentsLayoutManager);
         adapter = new MyDashboardRecyclerViewAdapter(apartmentsToList);
         this.apartments.setAdapter(adapter);
+
+        // Swipe handler for deleting objects
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // When item is swiped, remove item from arrayList and db
+                //apartmentsFromFireStore.remove(viewHolder.getAdapterPosition());
+                apartmentsFromFireStore.sort(new CreatedAtSorter()); // Sort the apartments by createdAt timestamp
+                Apartment deletedApartment = apartmentsFromFireStore.get(viewHolder.getAdapterPosition());
+                //int position = viewHolder.getAdapterPosition();
+                //Apartment obj = apartmentsFromFireStore.get(id);
+                //apartmentsFromFireStore.remove(deletedApartment);
+
+                Log.d("DEL", "Deleted item name: " + deletedApartment.getApartmentId() + "Address:  " +deletedApartment.getAddress());
+                //db.collection("apartments").document(deletedApartment.getApartmentId()).delete();
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                adapter.notifyDataSetChanged();
+            }
+        }).attachToRecyclerView(apartments);
+
 
         /*
         Add onClickListeners to all clickable UI-items:
@@ -129,12 +158,23 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             }
         });
 
+
+
         return view;
     }
 
     public void openDialog(){
         Dialog dialog = new Dialog();
         dialog.show(getParentFragmentManager(), "dialog");
+
+    }
+    public class CreatedAtSorter implements Comparator<Apartment>
+        // This class sorts apartments by createdAt timestamp
+    {
+        @Override
+        public int compare(Apartment a1, Apartment a2) {
+            return a2.getCreatedAt().compareTo(a1.getCreatedAt());
+        }
     }
 
     public void printMessage(){
@@ -153,6 +193,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             //add each apartment on the list
             apartmentsFromFireStore.add(allApartments.get(i));
         }
+        apartmentsFromFireStore.sort(new CreatedAtSorter()); // Sort the apartments by createdAt timestamp
         adapter.notifyDataSetChanged();
         return apartmentsFromFireStore;
     }
@@ -197,6 +238,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         for (int i=0;i<inputJson.size();i++) {
             Apartment aptFromFireStore= new Apartment("","","","","","","",0,0,0, 0, 0);
             aptFromFireStore.setApartmentId(String.valueOf(i));
+            aptFromFireStore.setApartmentId(inputJson.get(i).getReference().getId());
             aptFromFireStore.setAddress(inputJson.get(i).getString("address"));
             if (inputJson.get(i).getString("apartmentImageurl")!=null)
             {
@@ -212,6 +254,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             aptFromFireStore.setZipCode(inputJson.get(i).getString("zipCode"));
             aptFromFireStore.setArea(inputJson.get(i).getDouble("area"));
             aptFromFireStore.setRent(inputJson.get(i).getDouble("rent"));
+            aptFromFireStore.setCreatedAt(inputJson.get(i).getLong("createdAt"));
 
 
             aptFromFireStore.setCo2Amount(doubleRound(inputJson.get(i).getDouble("co2Amount"),1));
