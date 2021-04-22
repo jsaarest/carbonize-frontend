@@ -15,8 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.carbonize.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
-
-
+import com.squareup.picasso.Picasso;
 
 
 @RequiresApi(api = Build.VERSION_CODES.R)
@@ -40,6 +39,13 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        //Check if user has an email and call a pseudorandom image for their profile image
+        if (FirebaseAuth.getInstance().getCurrentUser().getEmail()!=null)
+        {
+            String pseudoRndProfileImage = new ImageRandomizer().getRandomProfileImage(FirebaseAuth.getInstance().getCurrentUser().getEmail().toString());
+            Picasso.get().load("https://picsum.photos/id/"+ pseudoRndProfileImage + "/300/300").noFade().fit().into(binding.profileImage);
+            System.out.println("DEBUG: "+pseudoRndProfileImage);
+        }
         //On logout button press resets this fragment, moves the user to Enter fragment, and signs them out through firebase.
         binding.logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
