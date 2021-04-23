@@ -54,7 +54,7 @@ public class LoginFragment extends Fragment {
                 String password = mPassword.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
-                    mEmail.setError("Please, provide a email");
+                    mEmail.setError("Please, provide an email");
                     return;
                 }
                 if(TextUtils.isEmpty(password)){

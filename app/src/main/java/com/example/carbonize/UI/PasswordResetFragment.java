@@ -1,6 +1,6 @@
 package com.example.carbonize.UI;
 
-import android.content.Context;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +17,7 @@ import android.widget.EditText;
 import com.example.carbonize.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 public class PasswordResetFragment extends Fragment {

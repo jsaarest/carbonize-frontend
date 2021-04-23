@@ -1,5 +1,6 @@
 package com.example.carbonize.UI;
 
+
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,7 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Button;
+
 import android.widget.TextView;
 
 import com.example.carbonize.Apartment;
@@ -116,6 +119,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             Picasso.get().load("https://picsum.photos/id/"+ pseudoRndProfileImage + "/300/300").noFade().fit().into(profileButton);
             System.out.println("DEBUG: "+pseudoRndProfileImage);
         }
+
 
         // Swipe handler for deleting objects
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -291,7 +295,6 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         return apartmentsFromFirebase;
     }
 
-
     public ArrayList<Apartment> getApartments() {
         /*
         Helper method that returns ArrayList<Apartment> that holds current apartments in Firestore
@@ -299,7 +302,6 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
          */
         return apartmentsFromFireStore;
     }
-
 
     public static double doubleRound (double value, int precision) {
         /*
