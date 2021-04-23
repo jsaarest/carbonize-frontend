@@ -1,33 +1,31 @@
 package com.example.carbonize;
 
-import java.util.ArrayList;
 
+//Basic data for customer including getters & setters
 public class Customer {
-    private String customerId;
     private String customerName;
-    private String email;
-    private Integer totalReservations;
 
-    public Customer(String customerId, String customerName, String email, Integer totalReservations) {
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.email = email;
-        this.totalReservations = totalReservations;
-    }
-
-    public String getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public String getCustomerName() {
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    private Integer customerId;
+
+
+    public String getTenantName() {
         return customerName;
     }
 
-    public String getEmail() {
-        return email;
+    public void setTenantName(String tenantName) {
+        this.customerName = tenantName;
     }
 
-    public Integer getTotalReservations() {
-        return totalReservations;
+    public Customer(String cName, Integer cId){
+        customerName = cName;
+        customerId = cId;
     }
 }

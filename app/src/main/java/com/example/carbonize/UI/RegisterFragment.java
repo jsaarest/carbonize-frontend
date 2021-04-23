@@ -1,4 +1,4 @@
-package com.example.carbonize;
+package com.example.carbonize.UI;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.carbonize.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -58,7 +59,7 @@ public class RegisterFragment extends Fragment {
                 }
 
                 //check if all requirements for a good password are met
-                if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#\\$%\\^&\\*]).{12,}$")) {
+                if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[-_!@#\\$%\\^&\\*]).{12,}$")) {
                     System.out.println("Password ok");
                 }
                 else{
@@ -72,7 +73,7 @@ public class RegisterFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             System.out.println("User created");
-                            // TODO NAVIGATE INSIDE APP DASHBOARD
+                            // After succesfull registration, navigate to dashboard
                             Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_dashboardFragment);
                         } else {
                             //one last check if firebase accepted the credentials. If not, the reason is email.

@@ -1,20 +1,38 @@
 package com.example.carbonize;
 
-import com.example.carbonize.Reservation;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.example.carbonize.UI.DashboardFragment;
 
 import java.util.ArrayList;
 
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class CarbonAndRevenueCalculator {
-    private String baseUrl;
-    private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+    //Singleton design pattern
+    private static final CarbonAndRevenueCalculator instance = new CarbonAndRevenueCalculator();
 
-    public CarbonAndRevenueCalculator() {}
+    private CarbonAndRevenueCalculator() {
+    }
 
+    public static CarbonAndRevenueCalculator getInstance() {
+        return instance;
+    }
 
-    /*
-    public double getEstimatedCo2(ArrayList<Reservation> reservations) {}
+    public static double totalRevenue = 0;
+    public static double totalCo2 = 0;
+    DashboardFragment dashboard = new DashboardFragment();
+    private static ArrayList<Apartment> apartments = new ArrayList<Apartment>();
 
-    public double calculateTotalRevenue(ArrayList<Reservation> reservations) {}
-     */
-
+    //Calculates the total revenue and Co2 amounts from the apartment list and updates the class variables with new values.
+    public void calculateTotalRevenueAndCo2() {
+        totalRevenue = 0;
+        totalCo2 = 0;
+        apartments = dashboard.getApartments();
+        for (int i = 0; i < apartments.size(); i++) {
+            totalRevenue = totalRevenue + apartments.get(i).getRent();
+            totalCo2 = totalCo2 + apartments.get(i).getCo2Amount();
+        }
+    }
 }

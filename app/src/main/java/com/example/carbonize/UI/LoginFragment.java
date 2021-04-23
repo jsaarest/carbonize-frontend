@@ -1,5 +1,7 @@
-package com.example.carbonize;
+package com.example.carbonize.UI;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.carbonize.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,7 +25,7 @@ public class LoginFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     EditText mEmail, mPassword;
-    Button mLoginButton;
+    Button mLoginButton, mResetPassword;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,8 +35,18 @@ public class LoginFragment extends Fragment {
         mEmail = v.findViewById(R.id.loginEmail);
         mPassword = v.findViewById(R.id.loginPassword);
         mLoginButton = v.findViewById(R.id.loginWithEmail);
+        mResetPassword = v.findViewById(R.id.goToResetPassword);
+
+        // Users can also reset their password
+        mResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_passwordResetFragment);
+            }
+        });
 
         // Add some logic to login button
+        // Calls Firebase authentication to sign in
         mLoginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -41,7 +54,7 @@ public class LoginFragment extends Fragment {
                 String password = mPassword.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
-                    mEmail.setError("Please, provide a email");
+                    mEmail.setError("Please, provide an email");
                     return;
                 }
                 if(TextUtils.isEmpty(password)){
@@ -59,7 +72,16 @@ public class LoginFragment extends Fragment {
                         } else {
 
                             System.out.println("ERROR: Login not successful");
-                            //TODO Handle errors with failed login
+                            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                            alertDialog.setTitle("Login failed");
+                            alertDialog.setMessage("Incorrect username or password.");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
                         }
                     }
                 });

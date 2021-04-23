@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/enterFragment"
-        android:name="com.example.carbonize.EnterFragment"
+        android:name="com.example.carbonize.UI.EnterFragment"
         android:label="fragment_enter"
         tools:layout="@layout/fragment_enter">
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.carbonize.RegisterFragment"
+        android:name="com.example.carbonize.UI.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.carbonize.LoginFragment"
+        android:name="com.example.carbonize.UI.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -51,10 +51,13 @@
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_passwordResetFragment"
+            app:destination="@id/passwordResetFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.carbonize.DashboardFragment"
+        android:name="com.example.carbonize.UI.DashboardFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -66,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/addApartment"
-        android:name="com.example.carbonize.AddApartment"
+        android:name="com.example.carbonize.UI.AddApartment"
         android:label="fragment_add_apartment"
         tools:layout="@layout/fragment_add_apartment" >
         <action
@@ -75,12 +78,36 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.carbonize.ProfileFragment"
+        android:name="com.example.carbonize.UI.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_enterFragment"
+            app:destination="@id/enterFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.example.carbonize.UI.ChartFragment"
+        android:label="fragment_chart"
+        tools:layout="@layout/fragment_chart" >
+        <action
+            android:id="@+id/action_chartFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordResetFragment"
+        android:name="com.example.carbonize.UI.PasswordResetFragment"
+        android:label="fragment_password_reset"
+        tools:layout="@layout/fragment_password_reset" >
+        <action
+            android:id="@+id/action_passwordResetFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
 </navigation>

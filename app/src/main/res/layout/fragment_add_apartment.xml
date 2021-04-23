@@ -8,17 +8,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".AddApartment">
+            tools:context=".UI.AddApartment">
 
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="8dp"
-                android:onClick="calculateResults"
+                android:layout_marginBottom="24dp"
+                android:onClick="addApartmentToDatabase"
                 android:text="Save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +92,7 @@
                 android:layout_marginBottom="28dp"
                 android:ems="10"
                 android:hint="e.g 31m2"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 app:layout_constraintBottom_toTopOf="@+id/button"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -114,7 +114,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="24dp"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -208,12 +208,21 @@
 
             <EditText
                 android:id="@+id/tenantNameField"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
+                android:layout_width="5dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="48dp"
+                android:layout_marginBottom="24dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Spinner
+                android:id="@+id/tenantSpinner"
+                android:layout_width="379dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="24dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView4"
                 app:layout_constraintStart_toStartOf="parent" />
 
