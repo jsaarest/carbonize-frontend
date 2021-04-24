@@ -174,10 +174,6 @@ public class AddApartment extends Fragment {
             return;
         }
 
-        float carbon = callCo2Api();
-
-        System.out.println(carbon);
-
     }
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void addToDatabase(float carbonAmount)

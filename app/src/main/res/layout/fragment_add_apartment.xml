@@ -53,7 +53,7 @@
                 android:layout_height="50dp"
                 android:ems="10"
                 android:hint="e.g Helsinki"
-                android:inputType="textPersonName"
+                android:digits="abcdefghijklmnopqrstuvwxyzäöåABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÅ"
                 app:layout_constraintBottom_toBottomOf="@+id/zipCode"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/zipCode" />
