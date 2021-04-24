@@ -117,6 +117,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
         {
             String pseudoRndProfileImage = new ImageRandomizer().getRandomProfileImage(FirebaseAuth.getInstance().getCurrentUser().getEmail().toString());
             Picasso.get().load("https://picsum.photos/id/"+ pseudoRndProfileImage + "/300/300").noFade().fit().into(profileButton);
+            System.out.println("DEBUG: "+pseudoRndProfileImage);
         }
 
 
@@ -279,7 +280,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
             aptFromFireStore.setCity(inputJson.get(i).getString("city"));
             aptFromFireStore.setZipCode(inputJson.get(i).getString("zipCode"));
             aptFromFireStore.setArea(inputJson.get(i).getDouble("area"));
-            aptFromFireStore.setRent(doubleRound(inputJson.get(i).getDouble("rent"), 1));
+            aptFromFireStore.setRent(inputJson.get(i).getDouble("rent"));
             aptFromFireStore.setCreatedAt(inputJson.get(i).getLong("createdAt"));
 
 
@@ -314,7 +315,7 @@ public class DashboardFragment extends Fragment implements Dialog.DialogListener
     //Gets the total revenue and Co2 amounts from CarbonAndRevenueCalculator class, formats them to desired format, and updates the texts in the interface.
     private void getTotalRevenueAndCo2() {
         calculator.calculateTotalRevenueAndCo2();
-        String formattedRevenue = String.format("%.1f €", CarbonAndRevenueCalculator.totalRevenue).replace(".", ",");
+        String formattedRevenue = String.format("%.1f €", CarbonAndRevenueCalculator.totalRevenue);
         String formattedCo2 = String.format("%.1f", CarbonAndRevenueCalculator.totalCo2).replace(".", ",") + " kg CO2e";
         totalCo2.setText(formattedCo2);
         totalEur.setText(formattedRevenue);

@@ -47,6 +47,7 @@ public class ProfileFragment extends Fragment {
         {
             String pseudoRndProfileImage = new ImageRandomizer().getRandomProfileImage(FirebaseAuth.getInstance().getCurrentUser().getEmail().toString());
             Picasso.get().load("https://picsum.photos/id/"+ pseudoRndProfileImage + "/300/300").noFade().fit().into(binding.profileImage);
+            System.out.println("DEBUG: "+pseudoRndProfileImage);
         }
         //On logout button press resets this fragment, moves the user to Enter fragment, and signs them out through firebase.
         binding.logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +94,7 @@ public class ProfileFragment extends Fragment {
         calculator.calculateTotalRevenueAndCo2();
         revenue = CarbonAndRevenueCalculator.totalRevenue;
         co2 = CarbonAndRevenueCalculator.totalCo2;
-        String formattedRevenue = String.format("%.1f €", revenue).replace(".", ",");
+        String formattedRevenue = String.format("%.1f €", revenue);
         String formattedCo2 = String.format("%.1f", co2).replace(".", ",");
         binding.revenueAmount.setText(formattedRevenue);
         binding.co2Amount.setText(formattedCo2 + " kg CO2e");
