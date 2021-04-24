@@ -130,7 +130,7 @@ public class ChartFragment extends Fragment {
 
         //Set total value texts, as chart is accessed from profile fragment, the total values have been already calculated every time profile fragment is opened.
         String formattedRevenue = String.format("%.0f€", CarbonAndRevenueCalculator.totalRevenue);
-        String formattedCo2 = String.format("%.0f Kg CO2e", CarbonAndRevenueCalculator.totalCo2);
+        String formattedCo2 = String.format("%.0f kg CO2e", CarbonAndRevenueCalculator.totalCo2);
         binding.totalRevenueText.setText("Total monthly revenue: " + formattedRevenue);
         binding.totalCo2Text.setText("Total monthly emissions: " + formattedCo2);
 
